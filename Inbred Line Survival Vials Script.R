@@ -2,7 +2,7 @@
 #Matthew Powers 
 #powerm3@oregonstate.edu
 #Combines analysis of survival assay data and generates figures for inbred lines
-#Last edited 1-31-23
+#Last edited 10-31-24 (Happy Halloween!)
 
 
 #load required packages
@@ -338,6 +338,16 @@ datum.ordered$Population <- str_extract(datum.ordered$Line, '\\D*')
     png("KO vs Survival in vials.png", units = "in", height = 14, width = 6, res=300)
     KOvsSurvival.24 / KOvsSurvival.48 / KOvsSurvival.72 + plot_annotation(tag_levels = 'A')
     dev.off()
+    
+    
+    ## Reviewer 1 asks if the slope for BOB is different than the other pops at 72 hours
+    mod.2 <- lm(Survival.prop ~ KO72.prop*Population, data = datum.ordered)
+    emm.2 <- emtrends(mod.2, ~Population, var="KO72.prop",  mode = "response") #Create em_grid object on response scale (odds ratio)
+    emm.2 #KO72.prop.trend  is the increase in the proportion of copepods that survived per 1 unit increase in LOE proportion
+    emm.2.contrasts <- contrast(emm.2,"pairwise", type = "response") #Do pairwise contrasts between pops
+    emm.2.contrasts #Estimate is the increase/decrease in the proportion of surviving copepods between pops
+    confint(emm.1.contrasts) #Show pairwise contrasts with confidence intervals
+    cld(emm.1) #Get group letter assignments for plotting
     
     
     
