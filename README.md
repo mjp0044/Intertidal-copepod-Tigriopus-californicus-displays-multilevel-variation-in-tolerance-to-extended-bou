@@ -12,8 +12,8 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 
 
-# Below you can find animated versions of figure 1 from the manuscript main text. These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
+## Below you can find animated versions of figure 1 from the manuscript main text. These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
 
-2 Days in August
+### 2 Days in August
 
 ![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20days%20in%20August%20for%20SH.gif)
