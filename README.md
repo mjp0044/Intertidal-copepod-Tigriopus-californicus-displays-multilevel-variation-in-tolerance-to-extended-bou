@@ -9,4 +9,8 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 2) The DO Script.R script imports oxygen data from the two text files "SH_pool3_30JUN-27SEP_Full.txt" and "BOB_pool2_28JUN-27SEP_Full.txt". These are imported as text files and not .csv files in the DO Script.R script. 
 
 
+# Below you can find animated versions of figure 1 from the manuscript main text. These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
+
+2 Days in August
+
 ![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20days%20in%20August%20for%20SH.gif)
