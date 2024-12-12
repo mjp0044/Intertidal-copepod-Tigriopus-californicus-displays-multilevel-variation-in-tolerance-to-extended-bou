@@ -12,7 +12,7 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 
 
-## Below you can find animated versions of figure 1 from the manuscript main text. 
+## Animated versions of figure 1 from the manuscript main text. 
 ### These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
 *Dissolved oxygen and temperature regimes in copepod-inhabited splash pools at Strawberry Hill (SH) and Boiler Bay (BOB), Oregon. Data collected at 10-min intervals from 01 July through 27 September 2022. Zoom-in of a 2-day and 2-week period for SH and BOB sites showing anoxia during the night. Black lines represent dissolved oxygen in mg O2 l-1 and the blue line shows the temperature in Celsius. Red dotted lines mark 0 mg O2 l-1 (anoxia), the orange dotted lines represent 2 mg O2 l-1 (severe hypoxia for most organisms), the green dotted lines represent 7.4 mg O2 l-1 (normoxic conditions at 20°C). The blue dotted lines indicate the incubator temperature of 20°C used in our laboratory assays. The yellow shading starts and ends at the sunrise and sunset times for each day.*
 
