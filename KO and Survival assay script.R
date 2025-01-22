@@ -532,6 +532,7 @@ theme_set(theme_cowplot())
         
         mod.1 <- betareg(LOE.trans ~Time*Pop + Sex, data=subset(datum.KO2, Group != "Control"))
         summary(mod.1)
+        plot(mod.1)
 
         emm.1 <- emtrends(mod.1, ~Pop, var="Time",  mode = "response") #Create em_grid object on response scale (odds ratio)
         emm.1 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -552,6 +553,7 @@ theme_set(theme_cowplot())
   
           mod.2 <- betareg(LOE.trans ~Time*Pop.sex, data=subset(datum.KO2, Group != "Control"))
           summary(mod.2)
+          plot(mod.2)
           
           emm.2 <- emtrends(mod.2, ~Pop.sex, var="Time",  mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.2 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -571,6 +573,7 @@ theme_set(theme_cowplot())
       #poisson distribution link function used because it's count data in the response variable
           mod.3 <- betareg(LOE.trans~Time*Sex + Pop, data=subset(datum.KO2, Group != "Control"))
           summary(mod.3)
+          plot(mod.3)
           
           emm.3 <- emtrends(mod.3, ~Sex, var="Time",  mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.3 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -608,6 +611,7 @@ theme_set(theme_cowplot())
           
           mod.control.vs.exp <- betareg(Hour6.prop.trans ~ Group, data = datum.KO)
           summary(mod.control.vs.exp)
+          plot(mod.control.vs.exp)
           
           emm.exp.con <- emmeans(mod.control.vs.exp, ~Group,  mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.exp.con #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -639,6 +643,7 @@ theme_set(theme_cowplot())
           #6 hours
             mod.4 <- betareg(Surv.trans~Pop + Sex, data = subset(datum.surv, Hours == "6"))
             summary(mod.4)
+            plot(mod.4)
             
             emm.4 <- emmeans(mod.4, ~Pop, mode = "response") #Create em_grid object on response scale (odds ratio)
             emm.4 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -656,6 +661,7 @@ theme_set(theme_cowplot())
           #15 hours
             mod.4b <- betareg(Surv.trans~Pop + Sex, data = subset(datum.surv, Hours == "15"))
             summary(mod.4b)
+            plot(mod.4b)
             
             emm.4b <- emmeans(mod.4b, ~Pop, mode = "response") #Create em_grid object on response scale (odds ratio)
             emm.4b #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -673,6 +679,7 @@ theme_set(theme_cowplot())
           #24 hours
             mod.4c <- betareg(Surv.trans~Pop + Sex, data = subset(datum.surv, Hours == "24"))
             summary(mod.4c)
+            plot(mod.4c)
             emm.4c <- emmeans(mod.4c, ~Pop, mode = "response") #Create em_grid object on response scale (odds ratio)
             emm.4c #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
             
@@ -689,6 +696,7 @@ theme_set(theme_cowplot())
           #24 hour control 
             mod.4d <- betareg(Surv.trans~Pop + Sex, data = subset(datum.surv, Hours == "control"))
             summary(mod.4d)
+            plot(mod.4d)
             emm.4d <- emmeans(mod.4d, ~Pop, mode = "response") #Create em_grid object on response scale (odds ratio)
             emm.4d #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
             
@@ -705,6 +713,7 @@ theme_set(theme_cowplot())
           #6 hour control
             mod.4e <- betareg(Surv.trans~Pop + Sex, data = subset(datum.surv, Hours == "control6"))
             summary(mod.4e)
+            plot(mod.4e)
             emm.4e <- emmeans(mod.4e, ~Pop, mode = "response") #Create em_grid object on response scale (odds ratio)
             emm.4e #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
             
@@ -905,6 +914,7 @@ theme_set(theme_cowplot())
         #6 hours
           mod.5 <- betareg(Surv.trans~Sex + Pop, data = subset(datum.surv, Hours == "6"))
           summary(mod.5)
+          plot(mod.5)
           
           emm.5 <- emmeans(mod.5, ~Sex, mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.5 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -923,6 +933,7 @@ theme_set(theme_cowplot())
         #15 hours
           mod.5b <- betareg(Surv.trans~Sex + Pop, data = subset(datum.surv, Hours == "15"))
           summary(mod.5b)
+          plot(mod.5b)
           
           emm.5b <- emmeans(mod.5b, ~Sex, mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.5b #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -939,6 +950,7 @@ theme_set(theme_cowplot())
         #24 hours
           mod.5c <- betareg(Surv.trans~Sex + Pop, data = subset(datum.surv, Hours == "24"))
           summary(mod.5c)
+          plot(mod.5c)
           
           emm.5c <- emmeans(mod.5c, ~Sex, mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.5c #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -956,6 +968,7 @@ theme_set(theme_cowplot())
         #24 hour control 
           mod.5d <- betareg(Surv.trans~Sex + Pop, data = subset(datum.surv, Hours == "control"))
           summary(mod.5d)
+          plot(mod.5d)
           
           emm.5d <- emmeans(mod.5d, ~Sex, mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.5d #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -973,6 +986,7 @@ theme_set(theme_cowplot())
         #6 hour control
           mod.5e <- betareg(Surv.trans~Sex + Pop, data = subset(datum.surv, Hours == "control6"))
           summary(mod.5e)
+          plot(mod.5e)
           
           emm.5e <- emmeans(mod.5e, ~Sex, mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.5e #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -1149,6 +1163,7 @@ theme_set(theme_cowplot())
         #6 hours
         mod.6 <- betareg(Surv.trans~Pop.sex, data = subset(datum.surv, Hours == "6"))
         summary(mod.6)
+        plot(mod.6)
         
         emm.6 <- emmeans(mod.6, ~Pop.sex, mode = "response") #Create em_grid object on response scale (odds ratio)
         emm.6 #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -1166,6 +1181,7 @@ theme_set(theme_cowplot())
         #15 hours
         mod.6b <- betareg(Surv.trans~Pop.sex, data = subset(datum.surv, Hours == "15"))
         summary(mod.6b)
+        plot(mod.6b)
         
         emm.6b <- emmeans(mod.6b, ~Pop.sex, mode = "response") #Create em_grid object on response scale (odds ratio)
         emm.6b #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -1182,6 +1198,7 @@ theme_set(theme_cowplot())
         #24 hours
         mod.6c <- betareg(Surv.trans~Pop.sex, data = subset(datum.surv, Hours == "24"))
         summary(mod.6c)
+        plot(mod.6c)
         
         emm.6c <- emmeans(mod.6c, ~Pop.sex, mode = "response") #Create em_grid object on response scale (odds ratio)
         emm.6c #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -1365,6 +1382,7 @@ theme_set(theme_cowplot())
       ##Experimental vs control survival
           mod.control.vs.exp.surv <- betareg(Surv.trans ~ Group, data = datum.surv)
           summary(mod.control.vs.exp.surv)
+          plot(mod.control.vs.exp.surv)
           
           emm.exp.con.surv <- emmeans(mod.control.vs.exp.surv, ~Group,  mode = "response") #Create em_grid object on response scale (odds ratio)
           emm.exp.con.surv #Time.trend is the increase in the proportion of copepods with LOE per 1 hour increase
@@ -1421,6 +1439,7 @@ theme_set(theme_cowplot())
       #Sex
           mod.7 <- lmer(Time_minutes~Sex + (1|Pop), data = datum.surv)
           summary(mod.7)
+          plot(mod.7)
           emmeans(mod.7, pairwise~Sex)
           #Export data
           comp.7 <- emmeans(mod.7, pairwise~Sex)
@@ -1457,6 +1476,7 @@ theme_set(theme_cowplot())
       #Population
           mod.8 <- lmer(Time_minutes~Pop + (1|Sex), data = datum.surv)
           summary(mod.8)
+          plot(mod.8)
           emmeans(mod.8, pairwise~Pop)
           #Export data
           comp.8 <- emmeans(mod.8, pairwise~Pop)
@@ -1499,6 +1519,7 @@ theme_set(theme_cowplot())
       #Population and sex
           mod.9 <- lm(Time_minutes~Pop.sex, data = datum.surv)
           summary(mod.9)
+          plot(mod.9)
           emmeans(mod.9, pairwise~Pop.sex)
           #Export data
           comp.9 <- emmeans(mod.9, pairwise~Pop.sex)
@@ -1561,6 +1582,7 @@ theme_set(theme_cowplot())
       #poisson distribution link function used because it's count data in the response variable
       mod.10 <- betareg(LOE.trans~Time*Time.minutes, data=datum.KO2)
       summary(mod.10)
+      plot(mod.10)
       # Coefficients (mean model with logit link):
       #                     Estimate Std. Error z value Pr(>|z|)    
       # (Intercept)       -1.767929   0.470900  -3.754 0.000174 ***
@@ -1587,6 +1609,7 @@ theme_set(theme_cowplot())
       #Without controlling for pop differences
       mod.11 <- betareg(Surv.trans~Time_minutes, data = subset(datum.surv, Hours == "6"))
       summary(mod.11)
+      plot(mod.11)
       
       exp(c(-0.004836, 0.004551)) #To get effect of time until anoxia on survival plus SE
       confint(mod.11)
@@ -1597,6 +1620,7 @@ theme_set(theme_cowplot())
       #Without controlling for pop differences
       mod.12 <- betareg(Surv.trans~Time_minutes, data = subset(datum.surv, Hours == "15"))
       summary(mod.12)
+      plot(mod.12)
       
       exp(c(-0.004562, 0.003713)) #To get effect of time until anoxia on survival plus SE
       confint(mod.12)
@@ -1607,6 +1631,7 @@ theme_set(theme_cowplot())
       #Without controlling for pop differences
       mod.13 <- betareg(Surv.trans~Time_minutes, data = subset(datum.surv, Hours == "24"))
       summary(mod.13)
+      plot(mod.13)
       
       exp(c(-0.001678, 0.002686)) #To get effect of time until anoxia on survival plus SE
       confint(mod.13)
