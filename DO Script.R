@@ -2,7 +2,7 @@
 #Matthew Powers 
 #powerm3@oregonstate.edu
 #Analyzes and visualizes DO data from BOB and SH populations
-#Last edited 05-26-23
+#Last edited 1-21-25
 
 #load required/preferred packages
 library(MESS) #data wrangling and modeling
@@ -35,7 +35,7 @@ library(ggiraph) #Connected interactive graphs
 theme_set(theme_cowplot())
 
 #Use to generate greek letters to copy and paste into labels
-greek <- paste("\U03B1","\U03B2","\U03B5","\u00B0","\U03C0","\U03A8") #Add whichever symbol unicodes you want to the list
+greek <- paste("\U03B1","\U03B2","\U03B5","\u00B0","\U03C0","\U03BC") #Add whichever symbol unicodes you want to the list
 greek #Run this line and then copy and paste whatever symbol you want from the list
 
 
@@ -165,8 +165,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       SH.all.data
       
       
-      #Export plot as png
-      png(filename = "All data with DO and Temp SH.png", width = 16, height = 10, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "All data with DO and Temp SH.tiff", width = 16, height = 10, units = "in", res = 300, compression = "lzw")
       SH.all.data
       dev.off()
       
@@ -184,19 +184,23 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
             geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
             geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
             facet_wrap(~Month, nrow=3, ncol=1, scales = "free_x")+
-            scale_x_datetime(name = "Day of Month", date_labels = "%d", date_breaks = "1 day", expand = c(0.02, 0.02))+
-            scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
-                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+            scale_x_datetime(name = "Day of Month", date_labels = "%d", date_breaks = "2 day", expand = c(0.02, 0.02))+
+            scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 4), 
+                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =4))
             )+
             ggtitle(label="SH")+
-            theme(axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+            theme(axis.text.y.right = element_text(color="blue", size =16), axis.title.y.right = element_text(color="blue", size = 22), 
+                  axis.text.y.left = element_text(size = 16), axis.title.y.left = element_text(size = 22), 
+                  axis.title.x = element_text(size = 20), axis.text.x = element_text(size = 16),
                   panel.grid.major.y = element_line(color="grey95"), 
-                  panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5))
+                  panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5),
+                  strip.text = element_text(size = 20),
+                  plot.title = element_text(size = 24))
           
           SH.month.data.DO
           
-          #Export plot as png
-          png(filename = "DO data facet by month SH.png", width = 10, height = 12, units = "in", res = 300)
+          #Export plot as tiff
+          tiff(filename = "DO data facet by month SH.tiff", width = 10, height = 12, units = "in", res = 300, compression = "lzw")
           SH.month.data.DO
           dev.off()
           
@@ -231,8 +235,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
             ggtitle(label="SH - August 1 - August 14")
           SH.zoom.2week
           
-          #Export plot as png
-          png(filename = "DO data zoomed 2 weeks SH.png", width = 11, height = 7, units = "in", res = 300)
+          #Export plot as tiff
+          tiff(filename = "DO data zoomed 2 weeks SH.tiff", width = 11, height = 7, units = "in", res = 300, compression = "lzw")
           SH.zoom.2week
           dev.off()
           
@@ -251,29 +255,33 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
                       ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
             geom_line() +
             geom_line(aes(x=Date, y=Temp), col="blue")+
-            scale_x_datetime(name = "", date_labels = "%b %d %H:%M:%S", date_breaks = "2 hour", expand = c(0.02, 0.02))+
-            scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
-                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+            scale_x_datetime(name = "", date_labels = "%b %d %H:%M:%S", date_breaks = "4 hour", expand = c(0.02, 0.02))+
+            scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 4), 
+                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =4))
             )+
             geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
             geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
             geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
             geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
-            theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
-                  axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+            theme(axis.text.y.right = element_text(color="blue", size =16), axis.title.y.right = element_text(color="blue", size = 22), 
+                  axis.text.y.left = element_text(size = 16), axis.title.y.left = element_text(size = 22), 
+                  axis.title.x = element_text(size = 20), axis.text.x = element_text(angle=45, hjust=1, vjust=1,size = 16),
                   panel.grid.major.y = element_line(color="grey95"), 
-                  panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5))+
+                  panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5),
+                  strip.text = element_text(size = 20),
+                  plot.title = element_text(size = 24))+
             ggtitle(label="SH - August 3-4")
           SH.zoom.2day
           
-          #Export plot as png
-          png(filename = "DO data zoomed 2 day SH.png", width = 11, height = 7, units = "in", res = 300)
+          
+          #Export plot as tiff
+          tiff(filename = "DO data zoomed 2 day SH.tiff", width = 11, height = 7, units = "in", res = 300, compression = "lzw")
           SH.zoom.2day
           dev.off()
           
           
         #Combine facet and two week and two day zooms
-          png(filename = "DO data with facet two weeks and two days SH.png", width = 18, height = 12, units = "in", res = 300)
+          tiff(filename = "DO data with facet two weeks and two days SH.tiff", width = 18, height = 12, units = "in", res = 300, compression = "lzw")
           SH.month.data.DO + (SH.zoom.2week /SH.zoom.2day)+
             plot_annotation(tag_levels = 'A')
           dev.off()
@@ -314,7 +322,7 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         transition_reveal(Date)
       
       
-      anim <- animate(SH.zoom.animation.2week, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300)
+      anim <- animate(SH.zoom.animation.2week, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300, compression = "lzw")
       
       anim_save("DO Animation 2 weeks in August for SH.gif", anim)
       
@@ -354,7 +362,7 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         transition_reveal(Date, keep_last = TRUE)
       
       
-      anim <- animate(SH.zoom.animation.2day, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300)
+      anim <- animate(SH.zoom.animation.2day, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300, compression = "lzw")
       
       anim_save("DO Animation 2 days in August for SH.gif", anim)
       
@@ -375,8 +383,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       
       SH.month.data.sat
       
-      #Export plot as png
-      png(filename = "Saturation data facet by month SH.png", width = 10, height = 12, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "Saturation data facet by month SH.tiff", width = 10, height = 12, units = "in", res = 300, compression = "lzw")
       SH.month.data.sat
       dev.off()
       
@@ -408,8 +416,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       BOB.all.data
       
       
-      #Export plot as png
-      png(filename = "All data with DO and Temp BOB.png", width = 16, height = 10, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "All data with DO and Temp BOB.tiff", width = 16, height = 10, units = "in", res = 300, compression = "lzw")
       BOB.all.data
       dev.off()
       
@@ -427,19 +435,23 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
         geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
         facet_wrap(~Month, nrow=3, ncol=1, scales = "free_x")+
-        scale_x_datetime(name = "Day of Month", date_labels = "%d", date_breaks = "1 day", expand = c(0.02, 0.02))+
-        scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
-                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+        scale_x_datetime(name = "Day of Month", date_labels = "%d", date_breaks = "2 day", expand = c(0.02, 0.02))+
+        scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 4), 
+                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =4))
         )+
         ggtitle(label="BOB")+
-        theme(axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+        theme(axis.text.y.right = element_text(color="blue", size =16), axis.title.y.right = element_text(color="blue", size = 22), 
+              axis.text.y.left = element_text(size = 16), axis.title.y.left = element_text(size = 22), 
+              axis.title.x = element_text(size = 20), axis.text.x = element_text(size = 16),
               panel.grid.major.y = element_line(color="grey95"), 
-              panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5))
+              panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5),
+              strip.text = element_text(size = 20),
+              plot.title = element_text(size = 24))
       
       BOB.month.data.DO
       
-      #Export plot as png
-      png(filename = "DO data facet by month BOB.png", width = 10, height = 12, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "DO data facet by month BOB.tiff", width = 10, height = 12, units = "in", res = 300, compression = "lzw")
       BOB.month.data.DO
       dev.off()
       
@@ -474,8 +486,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         ggtitle(label="BOB - August 1 - August 14")
       BOB.zoom.2week
       
-      #Export plot as png
-      png(filename = "DO data zoomed 2 weeks BOB.png", width = 11, height = 7, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "DO data zoomed 2 weeks BOB.tiff", width = 11, height = 7, units = "in", res = 300, compression = "lzw")
       BOB.zoom.2week
       dev.off()
       
@@ -494,29 +506,32 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
                   ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
         geom_line() +
         geom_line(aes(x=Date, y=Temp), col="blue")+
-        scale_x_datetime(name = "", date_labels = "%b %d %H:%M:%S", date_breaks = "2 hour", expand = c(0.02, 0.02))+
-        scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
-                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+        scale_x_datetime(name = "", date_labels = "%b %d %H:%M:%S", date_breaks = "4 hour", expand = c(0.02, 0.02))+
+        scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 4), 
+                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =4))
         )+
         geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
         geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
         geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
         geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
-        theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
-              axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+        theme(axis.text.y.right = element_text(color="blue", size =16), axis.title.y.right = element_text(color="blue", size = 22), 
+              axis.text.y.left = element_text(size = 16), axis.title.y.left = element_text(size = 22), 
+              axis.title.x = element_text(size = 20), axis.text.x = element_text(angle=45, hjust=1, vjust=1,size = 16),
               panel.grid.major.y = element_line(color="grey95"), 
-              panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5))+
+              panel.grid.minor.x = element_line(colour="grey95", linewidth=0.5),
+              strip.text = element_text(size = 20),
+              plot.title = element_text(size = 24))+
         ggtitle(label="BOB - August 3-4")
       BOB.zoom.2day
       
-      #Export plot as png
-      png(filename = "DO data zoomed 2 day BOB.png", width = 11, height = 7, units = "in", res = 300)
+      #Export plot as tiff
+      tiff(filename = "DO data zoomed 2 day BOB.tiff", width = 11, height = 7, units = "in", res = 300, compression = "lzw")
       BOB.zoom.2day
       dev.off()
       
       
       #Combine facet and two week and two day zooms
-          png(filename = "DO data with facet two weeks and two days BOB.png", width = 18, height = 12, units = "in", res = 300)
+          tiff(filename = "DO data with facet two weeks and two days BOB.tiff", width = 18, height = 12, units = "in", res = 300, compression = "lzw")
           BOB.month.data.DO + (BOB.zoom.2week /BOB.zoom.2day)+
             plot_annotation(tag_levels = 'A')
           dev.off()
@@ -557,7 +572,7 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         transition_reveal(Date)
       
       
-      anim <- animate(BOB.zoom.animation.2week, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300)
+      anim <- animate(BOB.zoom.animation.2week, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300, compression = "lzw")
       
       anim_save("DO Animation 2 weeks in August for BOB.gif", anim)
       
@@ -597,7 +612,7 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         transition_reveal(Date, keep_last = TRUE)
       
       
-      anim <- animate(BOB.zoom.animation.2day, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300)
+      anim <- animate(BOB.zoom.animation.2day, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40, units = "in", res = 300, compression = "lzw")
       
       anim_save("DO Animation 2 days in August for BOB.gif", anim)
       
@@ -618,8 +633,8 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           
           BOB.month.data.sat
           
-          #Export plot as png
-          png(filename = "Saturation data facet by month BOB.png", width = 10, height = 12, units = "in", res = 300)
+          #Export plot as tiff
+          tiff(filename = "Saturation data facet by month BOB.tiff", width = 10, height = 12, units = "in", res = 300, compression = "lzw")
           BOB.month.data.sat
           dev.off()
           
@@ -627,10 +642,16 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       ##   
       ## Make combined figure 1 for manuscript with BOB and SH data
       ##
+          tiff(filename = "Figure 1 data by month and day BOTH sites.tiff", width = 18, height = 20, units = "in", res = 300, compression = "lzw")
+          (SH.month.data.DO + BOB.month.data.DO) / (SH.zoom.2day + BOB.zoom.2day) +
+           plot_layout(heights = c(2, 1)) + plot_annotation(tag_levels = 'A') &
+          theme(plot.tag = element_text(size = 24))
+          dev.off()
+          
           png(filename = "Figure 1 data by month and day BOTH sites.png", width = 18, height = 20, units = "in", res = 300)
           (SH.month.data.DO + BOB.month.data.DO) / (SH.zoom.2day + BOB.zoom.2day) +
-           plot_layout(heights = c(2, 1)) + plot_annotation(tag_levels = 'A')&
-          theme(plot.tag = element_text(size = 20))
+            plot_layout(heights = c(2, 1)) + plot_annotation(tag_levels = 'A') &
+            theme(plot.tag = element_text(size = 24))
           dev.off()
           
           
@@ -704,11 +725,13 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           scale_x_continuous(name = "Minimum DO value measured each day (mg/L)", breaks = seq(0,10, by = 0.5))+
           ggtitle(label = "SH")+
           annotate("text", x = 4.5, y = 22, 
-                   label =  paste("# of days < 2 mg/L DO =", days.below.2.SH, "days"), size = 4.5, color ="black")+
+                   label =  paste("Number of days < 2 mg/L DO =", days.below.2.SH, "days"), size = 5, color ="black")+
           annotate("text", x = 4.5, y = 20, 
-                   label =  paste("# of days < 0.5 mg/L DO =", days.below.0.5.SH, "days"), size = 4.5, color ="black")+
+                   label =  paste("Number of days < 0.5 mg/L DO =", days.below.0.5.SH, "days"), size = 5, color ="black")+
           annotate("text", x = 4.5, y = 18, 
-                   label =  paste("# of days < 0.1 mg/L DO =", days.below.0.1.SH, "days"), size = 4.5, color ="black")
+                   label =  paste("Number of days < 0.1 mg/L DO =", days.below.0.1.SH, "days"), size = 5, color ="black")+
+          theme(plot.title = element_text(size = 20),
+                axis.text = element_text(size = 16), axis.title = element_text(size = 18))
         min.histo.SH
     
     #Make histogram showing distribution of time spent below 2 mg/L DO across all the days that summer
@@ -716,12 +739,12 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         ggplot(aes(x=minutes_below_2))+ 
         geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
         scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,30, by = 2))+
-        scale_x_continuous(name = "Minutes per day spent below 2 mg/L DO", breaks = seq(0,1000, by = 60))+
+        scale_x_continuous(name = "Min. per day below 2 mg/L DO", breaks = seq(0,1000, by = 60))+
         annotate("text", x = 500, y = 26, 
-                 label =  paste("Avg time < 2 mg/L DO =", avg.below.2.SH, "min."), size = 4, color ="black")+
+                 label =  paste("Avg. time < 2 mg/L DO =", avg.below.2.SH, "min."), size = 4, color ="black")+
         annotate("text", x = 500, y = 24, 
                  label =  paste("Range < 2 mg/L DO =", range.below.2.SH, "min."), size = 4, color ="black")+
-        theme(axis.text.x = element_text(size=10, angle = 45, vjust=1, hjust=1), axis.title.x = element_text(size=12))
+        theme(axis.text.x = element_text(size=13, angle = 45, vjust=1, hjust=1), axis.title = element_text(size=18))
       min.time.histo.2.SH
       
     #Make histogram showing distribution of time spent below 0.5 mg/L DO across all the days that summer
@@ -729,12 +752,12 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         ggplot(aes(x=minutes_below_0.5))+ 
         geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
         scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,100, by = 5))+
-        scale_x_continuous(name = "Minutes per day spent below 0.5 mg/L DO", breaks = seq(0,1000, by = 60))+
+        scale_x_continuous(name = "Min. per day below 0.5 mg/L DO", breaks = seq(0,1000, by = 60))+
         annotate("text", x = 240, y = 65, 
-                 label =  paste("Avg time < 0.5 mg/L DO =", avg.below.0.5.SH, "min."), size = 4, color ="black")+
+                 label =  paste("Avg. time < 0.5 mg/L DO =", avg.below.0.5.SH, "min."), size = 4, color ="black")+
         annotate("text", x = 240, y = 60, 
                  label =  paste("Range < 0.5 mg/L DO =", range.below.0.5.SH, "min."), size = 4, color ="black")+
-        theme(axis.text.x = element_text(size=11), axis.title.x = element_text(size=12))
+        theme(axis.text.x = element_text(size=13.5), axis.title = element_text(size=18))
       min.time.histo.0.5.SH
       
     #Make histogram showing distribution of time spent below 0.1 mg/L DO across all the days that summer
@@ -742,17 +765,17 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
         ggplot(aes(x=minutes_below_0.1))+ 
         geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
         scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,100, by = 5))+
-        scale_x_continuous(name = "Minutes per day spent below 0.1 mg/L DO", breaks = seq(0,1000, by = 60))+
+        scale_x_continuous(name = "Min. per day below 0.1 mg/L DO", breaks = seq(0,1000, by = 60))+
         annotate("text", x = 210, y = 70, 
-                 label =  paste("Avg time < 0.1 mg/L DO =", avg.below.0.1.SH, "min."), size = 4, color ="black")+
+                 label =  paste("Avg. time < 0.1 mg/L DO =", avg.below.0.1.SH, "min."), size = 4, color ="black")+
         annotate("text", x = 210, y = 65, 
                  label =  paste("Range < 0.1 mg/L DO =", range.below.0.1.SH, "min."), size = 4, color ="black")+
-        theme(axis.text.x = element_text(size=11), axis.title.x = element_text(size=12))
+        theme(axis.text.x = element_text(size=14), axis.title = element_text(size=18))
       min.time.histo.0.1.SH
 
       
       #Create and export figure
-      png(filename = "Histograms of DO data SH.png", width = 13, height = 9, units = "in", res = 300)
+      tiff(filename = "Histograms of DO data SH.tiff", width = 13, height = 9, units = "in", res = 300, compression = "lzw")
             min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) +
               plot_annotation(tag_levels = 'A')
             dev.off()
@@ -826,12 +849,14 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
               scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,30, by = 2))+
               scale_x_continuous(name = "Minimum DO value measured each day (mg/L)", breaks = seq(0,10, by = 0.5))+
               ggtitle(label="BOB")+
-              annotate("text", x = 4.5, y = 22, 
-                       label =  paste("Number of days below 2 mg/L DO =", days.below.2.BOB, "days"), size = 3.5, color ="black")+
               annotate("text", x = 4.5, y = 20, 
-                       label =  paste("Number of days below 0.5 mg/L DO =", days.below.0.5.BOB, "days"), size = 3.5, color ="black")+
+                       label =  paste("Number of days below 2 mg/L DO =", days.below.2.BOB, "days"), size = 5, color ="black")+
               annotate("text", x = 4.5, y = 18, 
-                       label =  paste("Number of days below 0.1 mg/L DO =", days.below.0.1.BOB, "days"), size = 3.5, color ="black")
+                       label =  paste("Number of days below 0.5 mg/L DO =", days.below.0.5.BOB, "days"), size = 5, color ="black")+
+              annotate("text", x = 4.5, y = 16, 
+                       label =  paste("Number of days below 0.1 mg/L DO =", days.below.0.1.BOB, "days"), size = 5, color ="black")+
+              theme(plot.title = element_text(size = 20),
+                    axis.text = element_text(size = 16), axis.title = element_text(size = 18))
             min.histo.BOB
             
           #Make histogram showing distribution of time spent below 2 mg/L DO across all the days that summer
@@ -839,12 +864,12 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
               ggplot(aes(x=minutes_below_2))+ 
               geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
               scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,60, by = 4))+
-              scale_x_continuous(name = "Minutes per day spent below 2 mg/L DO", breaks = seq(0,1000, by = 60))+
+              scale_x_continuous(name = "Min. per day below 2 mg/L DO", breaks = seq(0,1000, by = 60))+
               annotate("text", x = 500, y = 49, 
-                       label =  paste("Average time below 2 mg/L DO =", avg.below.2.BOB, "min."), size = 3, color ="black")+
+                       label =  paste("Avg. time < 2 mg/L DO =", avg.below.2.BOB, "min."), size = 4, color ="black")+
               annotate("text", x = 500, y = 45, 
-                       label =  paste("Range of time below 2 mg/L DO =", range.below.2.BOB, "min."), size = 3, color ="black")+
-              theme(axis.text.x = element_text(size=10, angle = 45, vjust=1, hjust=1), axis.title.x = element_text(size=12))
+                       label =  paste("Range of time < 2 mg/L DO =", range.below.2.BOB, "min."), size = 4, color ="black")+
+              theme(axis.text.x = element_text(size=13, angle = 45, vjust=1, hjust=1), axis.title = element_text(size=18))
             min.time.histo.2.BOB
             
           #Make histogram showing distribution of time spent below 0.5 mg/L DO across all the days that summer
@@ -852,12 +877,12 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
               ggplot(aes(x=minutes_below_0.5))+ 
               geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
               scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,100, by = 5))+
-              scale_x_continuous(name = "Minutes per day spent below 0.5 mg/L DO", breaks = seq(0,1000, by = 60))+
+              scale_x_continuous(name = "Min. per day below 0.5 mg/L DO", breaks = seq(0,1000, by = 60))+
               annotate("text", x = 300, y = 65, 
-                       label =  paste("Average time below 0.5 mg/L DO =", avg.below.0.5.BOB, "min."), size = 3, color ="black")+
-              annotate("text", x = 300, y = 60, 
-                       label =  paste("Range of time below 0.5 mg/L DO =", range.below.0.5.BOB, "min."), size = 3, color ="black")+
-              theme(axis.text.x = element_text(size=11), axis.title.x = element_text(size=12))
+                       label =  paste("Avg. time < 0.5 mg/L DO =", avg.below.0.5.BOB, "min."), size = 4, color ="black")+
+              annotate("text", x = 330, y = 60, 
+                       label =  paste("Range of time < 0.5 mg/L DO =", range.below.0.5.BOB, "min."), size = 4, color ="black")+
+              theme(axis.text.x = element_text(size=13.5, angle = 45, vjust=1, hjust=1), axis.title = element_text(size=18))
             min.time.histo.0.5.BOB
             
           #Make histogram showing distribution of time spent below 0.1 mg/L DO across all the days that summer
@@ -865,21 +890,34 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
               ggplot(aes(x=minutes_below_0.1))+ 
               geom_histogram(color="black", fill="cornflowerblue", binwidth=60)+
               scale_y_continuous(name = "Frequency (# of days)", breaks = seq(0,100, by = 5))+
-              scale_x_continuous(name = "Minutes per day spent below 0.1 mg/L DO", breaks = seq(0,1000, by = 60))+
+              scale_x_continuous(name = "Min. per day below 0.1 mg/L DO", breaks = seq(0,1000, by = 60))+
               annotate("text", x = 250, y = 70, 
-                       label =  paste("Average time below 0.1 mg/L DO =", avg.below.0.1.BOB, "min."), size = 3, color ="black")+
-              annotate("text", x = 250, y = 65, 
-                       label =  paste("Range of time below 0.1 mg/L DO =", range.below.0.1.BOB, "min."), size = 3, color ="black")+
-              theme(axis.text.x = element_text(size=11), axis.title.x = element_text(size=12))
+                       label =  paste("Avg. time < 0.1 mg/L DO =", avg.below.0.1.BOB, "min."), size = 4, color ="black")+
+              annotate("text", x = 260, y = 65, 
+                       label =  paste("Range of time < 0.1 mg/L DO =", range.below.0.1.BOB, "min."), size = 4, color ="black")+
+              theme(axis.text.x = element_text(size=14), axis.title = element_text(size=18))
             min.time.histo.0.1.BOB
             
             
           #Create and export figure
-            png(filename = "Histograms of DO data BOB.png", width = 13, height = 9, units = "in", res = 300)
+            tiff(filename = "Histograms of DO data BOB.tiff", width = 13, height = 9, units = "in", res = 300, compression = "lzw")
             min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) +
               plot_annotation(tag_levels = 'A')
             dev.off()
+            
+            
+          #Create and export figure
+            tiff(filename = "Histograms of DO data BOB and SH together.tiff", width = 13.5, height = 18, units = "in", res = 300, compression = "lzw")
+            min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) /
+            min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) + 
+              plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(size = 18))
+            dev.off()
       
+            png(filename = "Histograms of DO data BOB and SH together.png", width = 13.5, height = 18, units = "in", res = 300)
+            min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) /
+              min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) + 
+              plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(size = 18))
+            dev.off()
       
       
       
