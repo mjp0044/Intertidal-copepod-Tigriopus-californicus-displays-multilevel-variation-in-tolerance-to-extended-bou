@@ -2,7 +2,7 @@
 #Matthew Powers 
 #powerm3@oregonstate.edu
 #Combines analysis of KO assay data and generates figures
-#Last edited 10-12-23
+#Last edited 1-21-25
 
 #load required packages
 library(ggpubr) #Also loads basic ggplot2
@@ -886,6 +886,12 @@ theme_set(theme_cowplot())
         plot_annotation(tag_levels = 'A')
       dev.off()
       
+      tiff(filename = "KO and Survival by pop.tiff", width = 11, height = 5, units = "in", res = 300)
+      KO.by.pop + (survival.pop.6 + survival.pop.15 + survival.pop.24)+
+        plot_layout(widths = c(0.3, 0.95))+
+        plot_annotation(tag_levels = 'A')
+      dev.off()
+      
       png(filename = "KO and Survival by pop controls.png", width = 9, height = 4, units = "in", res = 300)
       KO.by.pop.control + (survival.pop.control.6 + survival.pop.control.24)+ 
         plot_layout(widths = c(0.4, 0.95))+
@@ -1137,6 +1143,12 @@ theme_set(theme_cowplot())
           plot_annotation(tag_levels = 'A')
         dev.off()
         
+        tiff(filename = "KO and Survival by sex.tiff", width = 11, height = 5, units = "in", res = 300)
+        KO.by.sex + (survival.sex.6 + survival.sex.15 + survival.sex.24) + 
+          plot_layout(widths = c(0.3, 0.95))+
+          plot_annotation(tag_levels = 'A')
+        dev.off()
+        
         png(filename = "KO and Survival by sex controls.png", width = 9, height = 4, units = "in", res = 300)
         KO.by.sex.control + (survival.sex.control.6hr + survival.sex.control.24hr) + 
           plot_layout(widths = c(0.4, 0.95))+
@@ -1360,6 +1372,12 @@ theme_set(theme_cowplot())
             plot_layout(widths = c(0.4, 1)) +
             plot_annotation(tag_levels = 'A')
           dev.off()
+          
+          tiff(filename = "KO and Survival by pop and sex.tiff", width = 11, height = 5, units = "in", res = 300)
+          KO.by.popsex + (survival.popsex.6 + survival.popsex.15 + survival.popsex.24) + 
+            plot_layout(widths = c(0.4, 1)) +
+            plot_annotation(tag_levels = 'A')
+          dev.off()
         
           
           #/ (survival.popsex.control + survival.popsex.control)
@@ -1426,6 +1444,14 @@ theme_set(theme_cowplot())
             plot_layout(widths = c(0.4, 1)) +
             plot_annotation(tag_levels = 'A')
             
+          dev.off()
+          
+          tiff(filename = "Control vs Experimental Summary Figure.tiff", width = 8, height = 5, units = "in", res = 300)
+          
+          exp.vs.control.LOE + exp.vs.control.surv +
+            plot_layout(widths = c(0.4, 1)) +
+            plot_annotation(tag_levels = 'A')
+          
           dev.off()
           
         
