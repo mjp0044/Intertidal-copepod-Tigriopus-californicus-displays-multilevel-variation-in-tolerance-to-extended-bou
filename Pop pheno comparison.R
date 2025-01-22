@@ -2,7 +2,7 @@
 #Matthew Powers 
 #powerm3@oregonstate.edu
 #Statistics and figure creation
-#Last edited 06-27-24
+#Last edited 10-18-24
 #Tested on R v.4.3.3 "Angel Food Cake"
 
 #load required packages
@@ -649,9 +649,18 @@ library(multcompView) #See groupings from multcomp
 #####Is there a difference in each plate resp statistic among populations?
       
   #Alpha
+      #Overall effects model
+      mod.alpha <- lm(Alpha ~ Pop*Sex, data = datum[datum$Alpha < 25,])
+      anova(mod.alpha)
+      plot(mod.alpha)
+      
+      #Indivdual effects models
       mod.alpha.popsex <- lm(Alpha ~ Pop.sex, data = datum[datum$Alpha < 25,])
+      plot(mod.alpha.popsex)
       mod.alpha.pop <- lmer(Alpha ~ Pop + (1|Sex), data = datum[datum$Alpha < 25,])
+      plot(mod.alpha.pop)
       mod.alpha.sex <- lmer(Alpha ~ Sex + (1|Pop), data = datum[datum$Alpha < 25,])
+      plot(mod.alpha.sex)
       cld(emmeans(mod.alpha.popsex, pairwise ~ Pop.sex)) #Get CLDs 
       cld(emmeans(mod.alpha.pop, pairwise ~ Pop)) #Get CLDs
       cld(emmeans(mod.alpha.sex, pairwise ~ Sex)) #Get CLDs
@@ -672,9 +681,18 @@ library(multcompView) #See groupings from multcomp
       write.csv(confint(comp.1c$contrasts), file = "alphas by sex contrasts CIs.csv", row.names = FALSE)
       
   #PCrit
+      #Overall effects model
+      mod.Pcrit <- lm(Breakpoint ~ Pop*Sex, data = datum[datum$Breakpoint > 0 & datum$Breakpoint < 25,])
+      anova(mod.Pcrit)
+      plot(mod.Pcrit)
+      
+      #Indivdual effects models
       mod.Pcrit.popsex <- lm(Breakpoint ~ Pop.sex, data = datum[datum$Breakpoint > 0 & datum$Breakpoint < 25,])
+      plot(mod.Pcrit.popsex)
       mod.Pcrit.pop <- lmer(Breakpoint ~ Pop + (1|Sex), data = datum[datum$Breakpoint > 0 & datum$Breakpoint < 25,])
+      plot(mod.Pcrit.pop)
       mod.Pcrit.sex <- lmer(Breakpoint ~ Sex + (1|Pop), data = datum[datum$Breakpoint > 0 & datum$Breakpoint < 25,])
+      plot(mod.Pcrit.sex)
       cld(emmeans(mod.Pcrit.popsex, pairwise ~ Pop.sex)) #Get CLDs
           cld(emmeans(mod.Pcrit.pop, pairwise ~ Pop)) #Get CLDs
               cld(emmeans(mod.Pcrit.sex, pairwise ~ Sex)) #Get CLDs
@@ -718,9 +736,18 @@ library(multcompView) #See groupings from multcomp
   #     write.csv(confint(comp.3c$contrasts), file = "NLR by sex contrasts CIs.csv", row.names = FALSE)
       
   #RI
+      #Overall effects model
+      mod.RI <- lm(RI ~ Pop*Sex, data = datum)
+      anova(mod.RI)
+      plot(mod.RI)
+      
+      #Indivdual effects models
       mod.RI.popsex <- lm(RI ~ Pop.sex, data = datum)
+      plot(mod.RI.popsex)
       mod.RI.pop <- lmer(RI ~ Pop + (1|Sex), data = datum)
+      plot(mod.RI.pop)
       mod.RI.sex <- lmer(RI ~ Sex + (1|Pop), data = datum)
+      plot(mod.RI.sex)
       cld(emmeans(mod.RI.popsex, pairwise ~ Pop.sex)) #Get CLDs
           cld(emmeans(mod.RI.pop, pairwise ~ Pop)) #Get CLDs
               cld(emmeans(mod.RI.sex, pairwise ~ Sex)) #Get CLDs
@@ -787,9 +814,18 @@ library(multcompView) #See groupings from multcomp
   #     write.csv(confint(comp.6c$contrasts), file = "Lower by sex contrasts CIs.csv", row.names = FALSE)
       
   #Body length (remove one row with one copepod)
+      #Overall effects model
+      mod.length <- lm(Totlen ~ Pop*Sex, data = datum[-c(9),])
+      anova(mod.length)
+      plot(mod.length)
+      
+      #Indivdual effects models
       mod.length.popsex <- lm(Totlen ~ Pop.sex, data = datum[-c(9),])
+      plot(mod.length.popsex)
       mod.length.pop <- lmer(Totlen ~ Pop +  (1|Sex), data = datum[-c(9),])
+      plot(mod.length.pop)
       mod.length.sex <- lmer(Totlen ~ Sex +  (1|Pop), data = datum[-c(9),])
+      plot(mod.length.sex)
       cld(emmeans(mod.length.popsex, pairwise ~ Pop.sex)) #Get CLDs
           cld( emmeans(mod.length.pop, pairwise ~ Pop)) #Get CLDs
                cld(emmeans(mod.length.sex, pairwise ~ Sex)) #Get CLDs
