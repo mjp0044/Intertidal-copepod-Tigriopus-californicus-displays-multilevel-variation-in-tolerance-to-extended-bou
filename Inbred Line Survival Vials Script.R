@@ -254,6 +254,7 @@ datum.ordered$Population <- str_extract(datum.ordered$Line, '\\D*')
      #24 hours
    mod.1 <- betareg(Survival.trans ~ LOE24.trans + Population, data=datum.ordered)
     summary(mod.1)
+    plot(mod.1)
     
     emm.1 <- emtrends(mod.1, ~LOE24.trans, var = "LOE24.trans", mode = "response")
     emm.1
@@ -263,6 +264,7 @@ datum.ordered$Population <- str_extract(datum.ordered$Line, '\\D*')
     #48 hours
     mod.1b <- betareg(Survival.trans ~ LOE48.trans + Population, data=datum.ordered)
     summary(mod.1b)
+    plot(mod.1b)
     
     emm.2 <- emtrends(mod.1b, ~LOE48.trans, var = "LOE48.trans", mode = "response")
     emm.2
@@ -272,6 +274,7 @@ datum.ordered$Population <- str_extract(datum.ordered$Line, '\\D*')
     #72 hours
     mod.1c <- betareg(Survival.trans ~ LOE72.trans + Population, data=datum.ordered)
     summary(mod.1c)
+    plot(mod.1c)
     
     emm.1c <- emtrends(mod.1c, ~LOE72.trans, var = "LOE72.trans", mode = "response")
     emm.1c
@@ -342,6 +345,7 @@ datum.ordered$Population <- str_extract(datum.ordered$Line, '\\D*')
     
     ## Reviewer 1 asks if the slope for BOB is different than the other pops at 72 hours
     mod.2 <- lm(Survival.prop ~ KO72.prop*Population, data = datum.ordered)
+    plot(mod.2)
     emm.2 <- emtrends(mod.2, ~Population, var="KO72.prop",  mode = "response") #Create em_grid object on response scale (odds ratio)
     emm.2 #KO72.prop.trend  is the increase in the proportion of copepods that survived per 1 unit increase in LOE proportion
     emm.2.contrasts <- contrast(emm.2,"pairwise", type = "response") #Do pairwise contrasts between pops
