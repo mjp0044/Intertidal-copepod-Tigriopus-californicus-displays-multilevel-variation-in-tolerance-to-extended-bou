@@ -157,7 +157,7 @@ library(multcompView) #See groupings from multcomp
           scale_x_continuous(breaks = seq(0,0.04, by =0.01), limits = c(0,0.04)) +
           scale_fill_manual("Groups:", values = my_pal)+
           theme_ridges(center_axis_labels = TRUE)+
-          xlab(expression(paste("Alpha ", " (", "umol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
+          xlab(expression(paste("Alpha ", " (", "μmol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
           theme(legend.position = "none")+
           annotate("text", 0.04, 1.5, label = "a", size = 5)+
           annotate("text", 0.04, 2.5, label = "a", size = 5)+
@@ -179,7 +179,7 @@ library(multcompView) #See groupings from multcomp
           scale_x_continuous(breaks = seq(0,0.04, by =0.01), limits = c(0,0.04)) +
           scale_fill_manual("Groups:", values = my_pal2)+
           theme_ridges(center_axis_labels = TRUE)+
-          xlab(expression(paste("Alpha ", " (", "umol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
+          xlab(expression(paste("Alpha ", " (", "μmol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
           theme(legend.position = "none")+
           annotate("text", 0.04, 1.5, label = "a", size = 5)+
           annotate("text", 0.04, 2.5, label = "a", size = 5)+
@@ -197,7 +197,7 @@ library(multcompView) #See groupings from multcomp
           scale_x_continuous(breaks = seq(0,0.04, by =0.01), limits = c(0,0.04)) +
           scale_fill_manual("Groups:", values = my_pal3)+
           theme_ridges(center_axis_labels = TRUE)+
-          xlab(expression(paste("Alpha ", " (", "umol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
+          xlab(expression(paste("Alpha ", " (", "μmol ", O[2]," / mm / hr / kPa)"))) +ylab("")+
           theme(legend.position = "none")+
           annotate("text", 0.04, 1.5, label = "a", size = 5)+
           annotate("text", 0.04, 2.5, label = "a", size = 5)
@@ -228,7 +228,7 @@ library(multcompView) #See groupings from multcomp
                       range = paste(range(Breakpoint) |> round(2), collapse = ' - ')
             ) 
           
-          write.csv(datum.pcrit.mean, file = "Mean Pcrit across pops.csv", row.names = FALSE) #Save final frame as a csv
+          write.csv(datum.pcrit.mean.pop, file = "Mean Pcrit across pops.csv", row.names = FALSE) #Save final frame as a csv
           
           #Sex
           datum.pcrit.mean.sex <- datum[datum$Breakpoint > 0 & datum$Breakpoint < 25,] |> 
@@ -475,7 +475,7 @@ library(multcompView) #See groupings from multcomp
           
           #Combine plots
           png(file = "RI Combined.png", units = "in", width = 10, height = 5, res = 300)
-          ggarrange(RI.sex, RI.pop, RI.popsex,
+          ggarrange(RI.ridge.sex, RI.ridge.pop, RI.ridge.popsex,
                     nrow = 1,ncol = 3,
                     labels = c("A", "B", "C"), label.x = 0, label.y = 1,
                     widths = c(1, 1, 1.5), heights = c(1)
@@ -593,6 +593,13 @@ library(multcompView) #See groupings from multcomp
       ) 
       dev.off()
       
+      tiff(file = "Pop resp statistics.tiff", units = "in", width = 4, height = 8, res = 500)
+      ggarrange(pcrit.ridge.pop, Alphas.ridge.pop, RI.ridge.pop,
+                nrow = 3,ncol = 1,
+                labels = c("A", "B", "C")
+      ) 
+      dev.off()
+      
       
       #Sex
       png(file = "Sex resp statistics.png", units = "in", width = 4, height = 8, res = 300)
@@ -602,9 +609,23 @@ library(multcompView) #See groupings from multcomp
       ) 
       dev.off()
       
+      tiff(file = "Sex resp statistics.tiff", units = "in", width = 4, height = 8, res = 300)
+      ggarrange(pcrit.ridge.sex, Alphas.ridge.sex, RI.ridge.sex,
+                nrow = 3,ncol = 1,
+                labels = c("A", "B", "C")
+      ) 
+      dev.off()
+      
       
       #Pop.sex
       png(file = "Popsex resp statistics.png", units = "in", width = 5, height = 9, res = 300)
+      ggarrange(pcrit.ridge.popsex, Alphas.ridge.popsex, RI.ridge.popsex,
+                nrow = 3,ncol = 1,
+                labels = c("A", "B", "C")
+      ) 
+      dev.off()
+      
+      tiff(file = "Popsex resp statistics.tiff", units = "in", width = 5, height = 9, res = 300)
       ggarrange(pcrit.ridge.popsex, Alphas.ridge.popsex, RI.ridge.popsex,
                 nrow = 3,ncol = 1,
                 labels = c("A", "B", "C")
