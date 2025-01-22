@@ -2,7 +2,7 @@
 #Matthew Powers 
 #powerm3@oregonstate.edu
 #Statistics and figure creation
-#Last edited 10-18-24
+#Last edited 1-21-25
 #Tested on R v.4.3.3 "Angel Food Cake"
 
 #load required packages
