@@ -436,7 +436,7 @@ theme_set(theme_cowplot())
           scale_y_continuous(name="Proportion of copepods with LOE", breaks = seq(0, 1, by = 0.1), limits = c(0, 1))+
           scale_color_manual("Populations:",values = my_pal2)+
           theme(legend.position = "bottom", legend.direction = "horizontal")+
-          ggtitle(label = "6 Hours")
+          ggtitle(label = "")
         KO.by.pop
         
       #Make interactive plot for sex
@@ -451,7 +451,7 @@ theme_set(theme_cowplot())
           scale_y_continuous(name="Proportion of copepods with LOE", breaks = seq(0, 1, by = 0.1), limits = c(0,1))+
           scale_color_manual("Sexes:",values = my_pal3)+
           theme(legend.position = "bottom", legend.direction = "horizontal")+
-          ggtitle(label = "6 Hours")
+          ggtitle(label = "")
         KO.by.sex
         
       #Make interactive plot for population and sex
@@ -467,7 +467,7 @@ theme_set(theme_cowplot())
           scale_color_manual("Groups:",values = my_pal)+
           theme(legend.position = "bottom", legend.direction = "horizontal", axis.title.x = element_text(vjust=14),
                 axis.title.y = element_text(size=12))+
-          ggtitle(label = "6 Hours")
+          ggtitle(label = "")
         KO.by.popsex
         
         
