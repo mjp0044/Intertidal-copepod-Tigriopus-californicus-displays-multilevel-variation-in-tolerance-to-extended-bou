@@ -910,14 +910,17 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
             tiff(filename = "Histograms of DO data BOB and SH together.tiff", width = 13.5, height = 18, units = "in", res = 300, compression = "lzw")
             min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) /
             min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) + 
+              plot_layout(heights = c(4,4,0.1,4,4))+
               plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(size = 18))
             dev.off()
       
             png(filename = "Histograms of DO data BOB and SH together.png", width = 13.5, height = 18, units = "in", res = 300)
             min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) /
+              plot_spacer() /
               min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) + 
+              plot_layout(heights = c(4,4,0.1,4,4))+
               plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(size = 18))
             dev.off()
       
-      
+            
       
