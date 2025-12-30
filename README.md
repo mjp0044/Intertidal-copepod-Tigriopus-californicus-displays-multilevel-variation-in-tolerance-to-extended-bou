@@ -13,7 +13,7 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 Highlights from the analyses are shown below
 
-# Vizualizing continuous oxygen sensor data
+# Vizualizing continuous oxygen sensor data from the copepod's habitat
 
 ## Animated versions of figure 1 from the manuscript main text. 
 ### These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
