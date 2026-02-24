@@ -19,6 +19,15 @@ Highlights from the analyses are shown below
 ### These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
 *Dissolved oxygen and temperature regimes in copepod-inhabited splash pools at Strawberry Hill (SH) and Boiler Bay (BOB), Oregon. Data collected at 10-min intervals from 01 July through 27 September 2022. Zoom-in of a 2-day and 2-week period for SH and BOB sites showing anoxia during the night. Black lines represent dissolved oxygen in mg O2 l-1 and the blue line shows the temperature in Celsius. Red dotted lines mark 0 mg O2 l-1 (anoxia), the orange dotted lines represent 2 mg O2 l-1 (severe hypoxia for most organisms), the green dotted lines represent 7.4 mg O2 l-1 (normoxic conditions at 20°C). The blue dotted lines indicate the incubator temperature of 20°C used in our laboratory assays. The yellow shading starts and ends at the sunrise and sunset times for each day.*
 
+```
+#Color pallete tweaking for ggplot (optional)
+      br_pal3 <- pokepal(pokemon = "crawdaunt")
+      my_pal3 <- c(br_pal3[c(11,4)])
+      # just for displaying old and new palette - not required for solution
+      show_col(br_pal3)
+      show_col(my_pal3)
+```
+
 ### 2 Days in August at SH pool
 ![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20days%20in%20August%20for%20SH.gif)
 
