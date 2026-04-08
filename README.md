@@ -30,7 +30,7 @@ We can take a look at the data after I rename the columns with friendlier labels
     names(datum.SH) <- c("Time", "Date.Central", "Date", "Battery.Volts", "Temp", "DO", "Sat", "Q")
 ```
 
-Below is the snapshot of the raw data file and below that a simple view of the columns we care about. 
+Below is the snapshot of the raw data file. 
 
 <details>
 <summary>Raw data snapshot (R)</summary>
@@ -48,14 +48,9 @@ Below is the snapshot of the raw data file and below that a simple view of the c
 
 </details>
 
-| Time       | Date (Central)      | Month | Temp (°C) | DO (mg/L) | Sat (%) |
-|------------|---------------------|-------|-----------|-----------|---------|
-| 1656603540 | 2022-06-30 08:39:00 | June  | 15.148    | 4.282     | 52.787  |
-| 1656604140 | 2022-06-30 08:49:00 | June  | 15.019    | 4.026     | 49.506  |
-| 1656604740 | 2022-06-30 08:59:00 | June  | 15.019    | 4.220     | 51.897  |
-| 1656605340 | 2022-06-30 09:09:00 | June  | 15.122    | 4.384     | 54.020  |
-| 1656605940 | 2022-06-30 09:19:00 | June  | 15.328    | 4.393     | 54.350  |
-| 1656606540 | 2022-06-30 09:29:00 | June  | 15.551    | 4.592     | 57.069  |
+The first important thing we have to deal with this the formatting of the Date column.
+
+
 
 ## Animated versions of figure 1 from the manuscript main text. 
 ### These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
