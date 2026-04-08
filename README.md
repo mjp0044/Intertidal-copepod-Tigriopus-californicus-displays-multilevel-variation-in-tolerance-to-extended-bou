@@ -28,11 +28,9 @@ We can take a look at the data after I rename the columns with friendlier labels
 ```r
  # change column names
     names(datum.SH) <- c("Time", "Date.Central", "Date", "Battery.Volts", "Temp", "DO", "Sat", "Q")
-
-head(datum.SH)
 ```
 
-Below is the head() snapshot of the raw data file and below that a simple view of the columns we care about. 
+Below is the snapshot of the raw data file and below that a simple view of the columns we care about. 
 
 <details>
 <summary>Raw data snapshot (R)</summary>
