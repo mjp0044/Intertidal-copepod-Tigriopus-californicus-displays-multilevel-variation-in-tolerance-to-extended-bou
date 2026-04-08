@@ -17,7 +17,22 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 Problem: How do we take raw oxygen values recorded every 10 minutes and turn those into a clear picture what the copepods experience on a daily and nightly basis?
 
-Let's start with the data. Below is a dropdown snapshot of the raw data file and below that a simply view of the columns we care about. 
+Let's start with the data. After reading my data into R using: 
+
+```r
+datum.SH <- read.table(file="SH_pool3_30JUN-27SEP_Full.txt", header = F, strip.white = T, skip =9, sep=",")
+```
+
+We can take a look at the data after I rename the columns with friendlier labels. 
+
+```r
+ # change column names
+    names(datum.SH) <- c("Time", "Date.Central", "Date", "Battery.Volts", "Temp", "DO", "Sat", "Q")
+
+head(datum.SH)
+```
+
+Below is the head() snapshot of the raw data file and below that a simple view of the columns we care about. 
 
 <details>
 <summary>Raw data snapshot (R)</summary>
