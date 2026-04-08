@@ -11,9 +11,9 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 2) The DO Script.R script imports oxygen data from the two text files "SH_pool3_30JUN-27SEP_Full.txt" and "BOB_pool2_28JUN-27SEP_Full.txt". These are imported as text files and not .csv files in the DO Script.R script. 
 
-### Highlights from the analyses
+# Highlights from the analyses
 
-# Vizualizing continuous oxygen sensor data from the copepod's habitat
+## Vizualizing continuous oxygen sensor data from the copepod's habitat
 
 Problem: How do we take raw oxygen values recorded every 10 minutes and turn those into a clear picture what the copepods experience on a daily and nightly basis?
 
