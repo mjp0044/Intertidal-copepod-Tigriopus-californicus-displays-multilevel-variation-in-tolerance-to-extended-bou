@@ -32,8 +32,6 @@ We can take a look at the data after I rename the columns with friendlier labels
 
 Below is the snapshot of the raw data file. 
 
-<details>
-<summary>Raw data snapshot (R)</summary>
 
 ```r
 > head(datum.SH)
@@ -46,7 +44,6 @@ Below is the snapshot of the raw data file.
 6 1656606540 2022-06-30 16:29:00 2022-06-30 09:29:00          3.55 15.551 4.592175 57.06900 1.009
 ```
 
-</details>
 
 The first important thing we have to deal with this the formatting of the Date column.
 
