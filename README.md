@@ -17,7 +17,7 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 Problem: How do we take raw oxygen values recorded every 10 minutes and turn those into a clear picture what the copepods experience on a daily and nightly basis?
 
-Let's start with the data. Below is a snapshot of the raw data file and below that an abbreviated view of the columns we care about. 
+Let's start with the data. Below is a dropdown snapshot of the raw data file and below that a simply view of the columns we care about. 
 
 <details>
 <summary>Raw data snapshot (R)</summary>
