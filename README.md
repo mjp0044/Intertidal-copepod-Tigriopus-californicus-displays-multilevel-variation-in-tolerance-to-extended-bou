@@ -15,7 +15,7 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 ## Vizualizing continuous oxygen sensor data from the copepod's habitat
 
-Problem: How do we take raw oxygen values recorded every 10 minutes and turn those into a clear picture what the copepods experience on a daily and nightly basis?
+Problem: How do we take raw oxygen values from a sensor that sat in a tidepool for three months straight and turn those into a clear picture what the copepods experience on a daily and nightly basis?
 
 Let's start with the data. After reading my data into R using: 
 
@@ -45,8 +45,20 @@ Below is the snapshot of the raw data file.
 ```
 
 
-The first important thing we have to deal with this the formatting of the Date column.
+The first important thing we have to deal with this the formatting of the Date column. If we check the format of the columns we see it is listed as a character. 
 
+ ```r
+>     str(datum.SH) #Check formats of variables
+'data.frame':	12814 obs. of  8 variables:
+ $ Time         : int  1656603540 1656604140 1656604740 1656605340 1656605940 1656606540 1656607140 1656607740 1656608340 1656608940 ...
+ $ Date.Central : chr  "2022-06-30 15:39:00" "2022-06-30 15:49:00" "2022-06-30 15:59:00" "2022-06-30 16:09:00" ...
+ $ Date         : chr  "2022-06-30 08:39:00" "2022-06-30 08:49:00" "2022-06-30 08:59:00" "2022-06-30 09:09:00" ...
+ $ Battery.Volts: num  3.56 3.56 3.56 3.56 3.56 3.55 3.56 3.56 3.56 3.55 ...
+ $ Temp         : num  15.1 15 15 15.1 15.3 ...
+ $ DO           : num  4.28 4.03 4.22 4.38 4.39 ...
+ $ Sat          : num  52.8 49.5 51.9 54 54.4 ...
+ $ Q            : num  1.01 1.01 1.01 1.01 1.01 ...
+```
 
 
 ## Animated versions of figure 1 from the manuscript main text. 
