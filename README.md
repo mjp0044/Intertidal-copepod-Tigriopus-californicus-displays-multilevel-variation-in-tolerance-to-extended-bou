@@ -45,7 +45,9 @@ Below is the snapshot of the raw data file.
 ```
 
 
-The first important thing we have to deal with this the formatting of the Date column. If we check the format of the columns we see it is listed as a character. 
+The first important thing we have to deal with is the formatting of the Date column. If we check the format of the columns we see it is listed as a string of characters. 
+
+This is a problem, because if we want to use the date and time and meaningful pieces of information with which we can generate figures, we need to be able to split the information up easily.
 
  ```r
 >     str(datum.SH) #Check formats of variables
@@ -59,6 +61,42 @@ The first important thing we have to deal with this the formatting of the Date c
  $ Sat          : num  52.8 49.5 51.9 54 54.4 ...
  $ Q            : num  1.01 1.01 1.01 1.01 1.01 ...
 ```
+
+I could choose to utilize regex or string split functions (like those in the `stringr` package). However, base R also has some useful tools for dealing with time and date data. 
+
+Using base R, we can convert the character string to an object of class POSIXct that represent calendar times and dates. 
+
+```r
+#Reformat epoch time stamp as time of day as posix format.
+    datum.SH$Date <- as.POSIXct(datum.SH$Date)
+```
+
+From there, we can split the Date column information into individual parts. This will help us chunk or isolate pieces of data later (for example, by month or week or day). 
+We will split the Date column into four new columns: Month.day (the month and day together), TOD (time of day), Month, and Day. 
+
+```r
+#Format Month and day column using the posix date in the date column
+    datum.SH$Month.day <- format(as.POSIXct(datum.SH$Date), format = "%B %d")
+#Format TOD using the posix date in the date column
+    datum.SH$TOD <- format(as.POSIXct(datum.SH$Date), format = "%H:%M:%S")
+#Format TOD using the posix date in the date column
+    datum.SH$Month <- format(as.POSIXct(datum.SH$Date), format = "%B")
+#Format TOD using the posix date in the date column
+    datum.SH$Day <- format(as.POSIXct(datum.SH$Date), format = "%d")
+```
+
+Two last bits of housekeeping before we start plotting. First, we will also make sure we order our Month variable as a factor in chronological order. Otherwise, most R plotting packages will order the data alphabetically (i.e., in our data placing "August" before "June" on a plot).
+
+Second, we will round the dissolved oxygen and saturation data to 3 figures to avoid overcrowding plots. 
+
+```r
+#Relevel month variable to be in chrono order
+    datum.SH$Month <- factor(datum.SH$Month, levels = c("June", "July", "August", "September"))
+#Round DO and Sat data
+    datum.SH$DO <- round(datum.SH$DO, 3)
+    datum.SH$Sat <- round(datum.SH$Sat, 3)
+```
+
 
 
 ## Animated versions of figure 1 from the manuscript main text. 
