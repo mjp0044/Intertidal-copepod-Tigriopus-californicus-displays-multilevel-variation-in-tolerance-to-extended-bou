@@ -120,8 +120,4 @@ Now, we have our data prepared for plotting using `ggplot2`. The final format lo
 ### 2 Weeks in August at SH pool
 ![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20weeks%20in%20August%20for%20SH.gif)
 
-### 2 Days in August at BOB pool
-![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20days%20in%20August%20for%20BOB.gif)
-
-### 2 Weeks in August at BOB pool
 ![](https://github.com/mjp0044/Intertidal-copepod-Tigriopus-californicus-displays-multilevel-variation-in-tolerance-to-extended-bou/blob/main/animated_figures/DO%20Animation%202%20weeks%20in%20August%20for%20BOB.gif)
