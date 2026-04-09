@@ -97,7 +97,18 @@ Second, we will round the dissolved oxygen and saturation data to 3 figures to a
     datum.SH$Sat <- round(datum.SH$Sat, 3)
 ```
 
+Now, we have our data prepared for plotting using `ggplot2`. The final format looks like this: 
 
+```r
+> head(datum.SH)
+        Time        Date.Central                Date Battery.Volts   Temp    DO    Sat     Q Month.day      TOD Month Day
+1 1656603540 2022-06-30 15:39:00 2022-06-30 08:39:00          3.56 15.148 4.282 52.787 1.010   June 30 08:39:00  June  30
+2 1656604140 2022-06-30 15:49:00 2022-06-30 08:49:00          3.56 15.019 4.026 49.506 1.011   June 30 08:49:00  June  30
+3 1656604740 2022-06-30 15:59:00 2022-06-30 08:59:00          3.56 15.019 4.220 51.897 1.010   June 30 08:59:00  June  30
+4 1656605340 2022-06-30 16:09:00 2022-06-30 09:09:00          3.56 15.122 4.384 54.020 1.010   June 30 09:09:00  June  30
+5 1656605940 2022-06-30 16:19:00 2022-06-30 09:19:00          3.56 15.328 4.393 54.350 1.010   June 30 09:19:00  June  30
+6 1656606540 2022-06-30 16:29:00 2022-06-30 09:29:00          3.55 15.551 4.592 57.069 1.009   June 30 09:29:00  June  30
+```
 
 ## Animated versions of figure 1 from the manuscript main text. 
 ### These show the rise and fall of dissolved oxygen and temperature in the SH and BOB splashpools. 
