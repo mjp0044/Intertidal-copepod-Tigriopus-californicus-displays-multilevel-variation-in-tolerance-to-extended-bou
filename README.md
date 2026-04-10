@@ -122,4 +122,13 @@ Let's move to using `ggplot2` to build our graph. We will start with calling our
 
 Lets pick a two week window at the start of August, when the weather is typically very warm along the coast. We will look at August 1st through August 15th. 
 
+Looking at our data we can see that the POSIX times for the start of Aug 1 and the end of Aug 15 are: 
+
+```1659337740
+
+
+```
+
+
+
 
