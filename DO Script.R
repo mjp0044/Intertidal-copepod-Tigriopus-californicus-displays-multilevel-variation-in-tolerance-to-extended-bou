@@ -204,6 +204,11 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           SH.month.data.DO
           dev.off()
           
+          # Grab the row corresponding to the start of the first day you want
+          datum.SH[datum.SH$Month.day == "August 01", ][1, ]
+          
+          # Grab the row corresponding to the end of the last day you want
+          datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
           
       #Zoomed into two weeks to show pattern
           #Instructions: 
@@ -211,13 +216,19 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           #  1) choose start time number that correspond to desired start POSIX dates in date column
           #  2) choose the ending time number that corresponds to the desired end date. 
           #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.
+          
+          # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+          datum.SH[datum.SH$Month.day == "August 01", ][1, "Time"]
+          # Grab the row corresponding to the end of the last day you want so you can see the Time value
+          datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+          
           #For the geom_rect subset line:
           #   1) set the filter to the days you want. Refer to the data frame to see which day of year (DOY) corresponds to the dates being plotted
           SH.zoom.2week <- datum.SH |>
             filter(between(Time, 1659337740, 1660546140)) |>
             ggplot(aes(x=Date, y=DO)) +
-            geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227), 
-                     ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
+            # geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227), 
+            #          ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
             geom_line() +
             geom_line(aes(x=Date, y=Temp), col="blue")+
             scale_x_datetime(name = "", date_labels = "%b %d", date_breaks = "1 day", expand = c(0.02, 0.02))+
@@ -246,6 +257,12 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           #  1) choose start time number that correspond to desired start POSIX dates in date column
           #  2) choose the ending time number that corresponds to the desired end date. 
           #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.
+          
+          # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+          datum.SH[datum.SH$Month.day == "August 03", ][1, "Time"]
+          # Grab the row corresponding to the end of the last day you want so you can see the Time value
+          datum.SH[datum.SH$Month.day == "August 04", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+          
           #For the geom_rect subset line:
           #   1) set the filter to the days you want. Refer to the data frame to see which day of year (DOY) corresponds to the dates being plotted
           SH.zoom.2day <- datum.SH |>
@@ -295,6 +312,11 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           #  1) choose start time number that correspond to desired start POSIX dates in date column
           #  2) choose the ending time number that corresponds to the desired end date. 
           #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.SH.zoom.animation <- datum.SH |>
+          # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+          datum.SH[datum.SH$Month.day == "August 01", ][1, "Time"]
+          # Grab the row corresponding to the end of the last day you want so you can see the Time value
+          datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+          
       SH.zoom.animation.2week <- datum.SH |>
         filter(between(Time, 1659337740, 1660546140)) |>
         ggplot(aes(x=Date, y=DO)) +
@@ -334,6 +356,11 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       #  1) choose start time number that correspond to desired start POSIX dates in date column
       #  2) choose the ending time number that corresponds to the desired end date. 
       #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day. 
+      # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+      datum.SH[datum.SH$Month.day == "August 03", ][1, "Time"]
+      # Grab the row corresponding to the end of the last day you want so you can see the Time value
+      datum.SH[datum.SH$Month.day == "August 04", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+      
       SH.zoom.animation.2day <- datum.SH |>
         filter(between(Time, 1659510540, 1659682740)) |>
         ggplot(aes(x=Date, y=DO, label = DO)) +
@@ -463,9 +490,14 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       #  2) choose the ending time number that corresponds to the desired end date. 
       #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.
       #For the geom_rect subset line:
+      # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+      datum.BOB[datum.BOB$Month.day == "August 01", ][1, "Time"]
+      # Grab the row corresponding to the end of the last day you want so you can see the Time value
+      datum.BOB[datum.BOB$Month.day == "August 15", ][nrow(datum.BOB[datum.BOB$Month.day == "August 15", ]), "Time"]
+      
       #   1) set the filter to the days you want. Refer to the data frame to see which day of year (DOY) corresponds to the dates being plotted
       BOB.zoom.2week <- datum.BOB |>
-        filter(between(Time, 1659337500, 1660546500)) |>
+        filter(between(Time, 1659337500, 1660632900)) |>
         ggplot(aes(x=Date, y=DO)) +
         geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227), 
                   ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
@@ -498,6 +530,11 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       #  2) choose the ending time number that corresponds to the desired end date. 
       #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.
       #For the geom_rect subset line:
+      # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+      datum.BOB[datum.BOB$Month.day == "August 03", ][1, "Time"]
+      # Grab the row corresponding to the end of the last day you want so you can see the Time value
+      datum.BOB[datum.BOB$Month.day == "August 04", ][nrow(datum.BOB[datum.BOB$Month.day == "August 15", ]), "Time"]
+      
       #   1) set the filter to the days you want. Refer to the data frame to see which day of year (DOY) corresponds to the dates being plotted
       BOB.zoom.2day <- datum.BOB |>
         filter(between(Time, 1659510300, 1659682500)) |>
@@ -545,8 +582,13 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       #  1) choose start time number that correspond to desired start POSIX dates in date column
       #  2) choose the ending time number that corresponds to the desired end date. 
       #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day.SH.zoom.animation <- datum.SH |>
+          # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+          datum.BOB[datum.BOB$Month.day == "August 01", ][1, "Time"]
+          # Grab the row corresponding to the end of the last day you want so you can see the Time value
+          datum.BOB[datum.BOB$Month.day == "August 15", ][nrow(datum.BOB[datum.BOB$Month.day == "August 15", ]), "Time"]
+          
       BOB.zoom.animation.2week <- datum.BOB |>
-        filter(between(Time, 1659337500, 1660546500)) |>
+        filter(between(Time, 1659337500, 1660632900)) |>
         ggplot(aes(x=Date, y=DO)) +
         geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227), 
                   ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
@@ -584,6 +626,11 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
       #  1) choose start time number that correspond to desired start POSIX dates in date column
       #  2) choose the ending time number that corresponds to the desired end date. 
       #  3) for best plotting, recommend start time as first row for start day and end time as last row for end day. 
+      # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+      datum.BOB[datum.BOB$Month.day == "August 03", ][1, "Time"]
+      # Grab the row corresponding to the end of the last day you want so you can see the Time value
+      datum.BOB[datum.BOB$Month.day == "August 04", ][nrow(datum.BOB[datum.BOB$Month.day == "August 15", ]), "Time"]
+      
       BOB.zoom.animation.2day <- datum.BOB |>
         filter(between(Time, 1659510300, 1659682500)) |>
         ggplot(aes(x=Date, y=DO, label=DO)) +
@@ -909,6 +956,7 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
           #Create and export figure
             tiff(filename = "Histograms of DO data BOB and SH together.tiff", width = 13.5, height = 18, units = "in", res = 300, compression = "lzw")
             min.histo.SH / (min.time.histo.2.SH + min.time.histo.0.5.SH + min.time.histo.0.1.SH) /
+              plot_spacer() /
             min.histo.BOB / (min.time.histo.2.BOB + min.time.histo.0.5.BOB + min.time.histo.0.1.BOB) + 
               plot_layout(heights = c(4,4,0.1,4,4))+
               plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(size = 18))
