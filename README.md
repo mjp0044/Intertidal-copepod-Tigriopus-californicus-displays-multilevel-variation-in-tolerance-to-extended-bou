@@ -125,10 +125,12 @@ Lets pick a two week window at the start of August, when the weather is typicall
 We can query our data frame to isolate just the Time column for the first value on our start day and the last value on our end day by:
 
 ```r
-# Grab the row corresponding to the start of the first day you want so you can get the Time value only
- datum.SH[datum.SH$Month.day == "August 01", ][1, "Time"]
-# Grab the row corresponding to the end of the last day you want so you can see the Time value
- datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+> # Grab the row corresponding to the start of the first day you want so you can get the Time value only
+> datum.SH[datum.SH$Month.day == "August 01", ][1, "Time"]
+[1] 1659337740
+> # Grab the row corresponding to the end of the last day you want so you can see the Time value
+> datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
+[1] 1660633140
 ```
 
 
