@@ -122,11 +122,13 @@ Let's move to using `ggplot2` to build our graph. We will start with calling our
 
 Lets pick a two week window at the start of August, when the weather is typically very warm along the coast. We will look at August 1st through August 15th. 
 
-Looking at our data we can see that the POSIX times for the start of Aug 1 and the end of Aug 15 are: 
+We can query our data frame to isolate just the Time column for the first value on our start day and the last value on our end day by:
 
-```1659337740
-
-
+```r
+# Grab the row corresponding to the start of the first day you want so you can get the Time value only
+ datum.SH[datum.SH$Month.day == "August 01", ][1, "Time"]
+# Grab the row corresponding to the end of the last day you want so you can see the Time value
+ datum.SH[datum.SH$Month.day == "August 15", ][nrow(datum.SH[datum.SH$Month.day == "August 15", ]), "Time"]
 ```
 
 
