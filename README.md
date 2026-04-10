@@ -17,13 +17,13 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 Problem: How do we take raw oxygen values from a sensor that sat in a tidepool collecting continuous data for three months straight and turn all that dissolved oxygen data into a clear picture that shows us what copepods experience on a daily and nightly basis?
 
-Let's start with the data. After reading my data into R using: 
+Let's start with the data. After reading the data into R using: 
 
 ```r
 datum.SH <- read.table(file="SH_pool3_30JUN-27SEP_Full.txt", header = F, strip.white = T, skip =9, sep=",")
 ```
 
-We can take a look at the data after I rename the columns with friendlier labels. 
+We can take a look at the data after we rename the columns with friendlier labels. 
 
 ```r
  # change column names
@@ -62,7 +62,7 @@ This is a problem, because if we want to use the date and time and meaningful pi
  $ Q            : num  1.01 1.01 1.01 1.01 1.01 ...
 ```
 
-I could choose to utilize regex or string split functions (like those in the `stringr` package). However, base R also has some useful tools for dealing with time and date data. 
+We could choose to utilize regex or string split functions (like those in the `stringr` package). However, base R also has some useful tools for dealing with time and date data. 
 
 Using base R, we can convert the character string to an object of class POSIXct that represent calendar times and dates. 
 
