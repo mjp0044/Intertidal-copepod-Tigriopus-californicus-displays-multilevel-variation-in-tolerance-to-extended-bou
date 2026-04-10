@@ -66,14 +66,14 @@ This is a problem, because if we want to use the date and time and meaningful pi
 
 We could choose to utilize regex or string split functions (like those in the `stringr` package). However, base R also has some useful tools for dealing with time and date data. 
 
-Using base R, we can convert the character string to an object of class POSIXct that represent calendar times and dates. 
+Using base R, we can convert the character string to an object of class **POSIXct** that represent calendar times and dates. 
 
 ```r
 #Reformat epoch time stamp as time of day as posix format.
     datum.SH$Date <- as.POSIXct(datum.SH$Date)
 ```
 
-From there, we can split the Date column information into individual parts. This will help us chunk or isolate pieces of data later (for example, by month or week or day). 
+From there, we can split the Date column information into individual parts. This will help us summarize data later if we want (for example, by month or week or day). 
 We will split the Date column into four new columns: Month.day (the month and day together), TOD (time of day), Month, and Day. 
 
 ```r
@@ -111,4 +111,15 @@ Now, we have our data prepared for plotting using `ggplot2`. The final format lo
 5 1656605940 2022-06-30 16:19:00 2022-06-30 09:19:00          3.56 15.328 4.393 54.350 1.010   June 30 09:19:00  June  30
 6 1656606540 2022-06-30 16:29:00 2022-06-30 09:29:00          3.55 15.551 4.592 57.069 1.009   June 30 09:29:00  June  30
 ```
+
+At the start of this readme, you got a preview of how we can leverage this data to zoom on any window of data we want to see what is happening in the tide pools at any day and time. Retention of the Time data will be key to let us be precise in the windows we select. 
+
+Let's go ahead see how we acheived this by looking at a wider window of time like two weeks. 
+
+Ideally, we'd like to visualize the flux in oxygen over time continuously. Because oxygen content in the water is also dependent on temperature, it would be ideal to also show the flux in temperature. 
+
+Let's move to using `ggplot2` to build our graph. We will start with calling our data frame and using a filter of our Time variable to grab a specific two week period. Note that this variable is in **POSIX**, which count seconds elapsed since 1970-01-01 00:00:00 UTC. It directly corresponds to our meta data in the other columns, so we can pick out the Time values we want to grab by looking at those columns. 
+
+Lets pick a two week window at the start of August, when the weather is typically very warm along the coast. We will look at August 1st through August 15th. 
+
 
