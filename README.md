@@ -1,6 +1,6 @@
 
 #  The resistance to extreme hypoxia by an intertidal crustacean
-
+<img src="Figures/MEPS-2024-08-027R2 Social media image UPDATED.png" width="600">
 
 
 ## Instructions for utilizing scripts and data sheets. 
