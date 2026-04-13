@@ -133,6 +133,29 @@ We can query our data frame to isolate just the Time column for the first value 
 [1] 1660633140
 ```
 
+Now that we have those values, we can filter the data set using: 
+
+```r
+datum.SH |>
+filter(between(Time, 1659337740, 1660546140)) |>
+ggplot()
+```
+
+For our ggplot code, we will specify the overall plot mapping to have Date on the x-axis and dissolved oxygen on the y-axis
+
+We will place down two geoms, one with a line mapping to DO and a second with separate mappings to Temperature. We will make sure to give the temperature line a separate color. 
 
 
+```r
+datum.SH |>
+filter(between(Time, 1659337740, 1660546140)) |>
+ggplot(aes(x=Date, y=DO)) +
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")
+```
+
+This gives the basic structure of our plot. We can already see the cyclical nature of the oxygen and temperature values over time.
+
+
+<img src="figures/DO_timeseries.png" width="75%">
 
