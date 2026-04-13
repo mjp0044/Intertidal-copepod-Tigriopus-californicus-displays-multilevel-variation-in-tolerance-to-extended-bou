@@ -177,3 +177,5 @@ scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2),
                                sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2)))
 ```
 
+<img src="Figures/2 week base.png" width="400">
+
