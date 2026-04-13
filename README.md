@@ -157,5 +157,5 @@ geom_line(aes(x=Date, y=Temp), col="blue")
 This gives the basic structure of our plot. We can already see the cyclical nature of the oxygen and temperature values over time.
 
 
-<img src="figures/DO_timeseries.png" width="75%">
+<img src="Figures/2 week no format.png" width="400">
 
