@@ -156,6 +156,24 @@ geom_line(aes(x=Date, y=Temp), col="blue")
 
 This gives the basic structure of our plot. We can already see the cyclical nature of the oxygen and temperature values over time.
 
-
 <img src="Figures/2 week no format.png" width="400">
+
+The plot is pretty basic and lacks a lot of valuable information that we can use to better understanding the timing of the cycles. We're also missing a y-axis that corresponds to our blue temperature line. 
+
+Let's add those now using two helpful commands built in to ggplot2, scale_x_dateime and scale_y_continuous. 
+
+`Scale_x_datatime` allows us to specify that the Date data is in POSIX format, and lets us manipulate the labels using the same formatting syntax as above, where %b %d specifies we want to list the dates in the format "Aug 01". We can also specify how many days we want to show on the axis using the `date_breaks` option and add some padding around the data using `expand`. 
+
+For scale_y_continuous, we will change our label, specify our breaks for the tick marks, and add the second axis using the `sec.axis` option, which has its own set of labeling and breaks information. 
+
+```r
+datum.SH |>
+filter(between(Time, 1659337740, 1660546140)) |>
+ggplot(aes(x=Date, y=DO)) +
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")+
+scale_x_datetime(name = "", date_labels = "%b %d", date_breaks = "1 day", expand = c(0.02, 0.02))+
+scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
+                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2)))
+```
 
