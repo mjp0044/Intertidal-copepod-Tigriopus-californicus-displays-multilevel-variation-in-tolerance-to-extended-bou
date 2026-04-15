@@ -179,3 +179,42 @@ scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2),
 
 <img src="Figures/2 week base.png" width="600">
 
+This looks more informative.
+
+We can also add context to the scale by labeling some important values on the plot. 
+
+We will draw:
+1. A line at 0 mg O2 per liter in red to mark where DO values reach true anoxia.
+2. A line at 2 mg O2 per liter in orange to mark the widely accepted threshold of severe hypoxia for most aquatic organisms.
+3. A line at 7.4 mg O2 per liter in green to mark normal oxygen levels in our lab when measured at 20C.
+4. A line in blue at 20C to show the normal temperature we keep the copepods in captivity.
+
+We will do this with `geom_hline`. 
+
+While we're at it, we will tweak the asthetics of the plot by change `theme` parameters. We will tilt the axis text, and make the secondary y-axis blue to match the blue line representing the temperature. Because we now have a lot of elements on one graphs, we can add some faint background gridlines with the `panel.grid.major` option. 
+
+Finally, we will add a title with `ggtitle`. 
+
+```r
+datum.SH |>
+filter(between(Time, 1659337740, 1660546140)) |>
+ggplot(aes(x=Date, y=DO)) +
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")+
+scale_x_datetime(name = "", date_labels = "%b %d", date_breaks = "1 day", expand = c(0.02, 0.02))+
+scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
+                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+                              )+
+geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
+geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
+geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
+geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
+theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
+                  axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+                  panel.grid.major.y = element_line(color="grey95"), 
+                  panel.grid.major.x = element_line(colour="grey95", linewidth=0.5))+
+ggtitle(label="SH - August 1 - August 14")
+
+```
+
+
