@@ -145,6 +145,12 @@ For our ggplot code, we will specify the overall plot mapping to have Date on th
 
 We will place down two geoms, one with a line mapping to DO and a second with separate mappings to Temperature. We will make sure to give the temperature line a separate color. 
 
+I prefer very clean and minimalistic plots, so I usually set a global base theme for all my ggplot elements using the theme from the `cowplot` package. This makes it so I don't have to specify the theme for everyplot. 
+
+```r
+#Set theme globally
+theme_set(theme_cowplot())
+```
 
 ```r
 datum.SH |>
