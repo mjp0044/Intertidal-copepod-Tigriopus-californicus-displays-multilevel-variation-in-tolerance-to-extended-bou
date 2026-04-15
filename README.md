@@ -223,4 +223,5 @@ ggtitle(label="SH - August 1 - August 14")
 
 ```
 
+<img src="Figures/2 week lines.png" width="600">
 
