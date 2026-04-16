@@ -321,3 +321,39 @@ datum.ss$DOY <- yday(datum.ss$Full.Date)
 6            06  June  06 2022 05:31:00 20:58:00 2022-06-06 2022-06-06 05:31:00 2022-06-06 20:58:00   June 06 157
 ```
 
+Now we can make a final modification to our code to highlight daylight hours using `geom_rect`. 
+
+We will laydown mostly transparent, verticle rectangles that directly start and end at the sunrise and sunset times. Because we went through the trouble of getting Date.rise and Date.set in POSIX format matching our existing data, we can easily map these to our exisiting x-axis with a single line. 
+
+```r
+geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227),
+                     ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
+```
+
+The final product: 
+
+```r
+
+datum.SH |>
+filter(between(Time, 1659337740, 1660546140)) |>
+ggplot(aes(x=Date, y=DO)) +
+geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set), data = subset(datum.ss, DOY %in% 213:227),
+                     ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")+
+scale_x_datetime(name = "", date_labels = "%b %d", date_breaks = "1 day", expand = c(0.02, 0.02))+
+scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
+                               sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+                              )+
+geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
+geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
+geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
+geom_hline(yintercept=20, lty=2, linewidth =1, color="blue")+
+theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
+                  axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+                  panel.grid.major.y = element_line(color="grey95"), 
+                  panel.grid.major.x = element_line(colour="grey95", linewidth=0.5))+
+ggtitle(label="SH - August 1 - August 14")
+```
+
+<img src="Figures/2 week lines.png" width="600">
