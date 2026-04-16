@@ -356,4 +356,4 @@ theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
 ggtitle(label="SH - August 1 - August 14")
 ```
 
-<img src="Figures/2 week lines.png" width="600">
+<img src="Figures/DO data zoomed 2 weeks SH.png" width="600">
