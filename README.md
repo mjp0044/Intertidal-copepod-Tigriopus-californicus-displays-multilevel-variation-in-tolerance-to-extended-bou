@@ -230,10 +230,41 @@ This is looking great. The aesthetics are clean and we have a lot of information
 
 The cycles are clearly daily. 
 
+We could hypothesize that oxygen levels and temperature in the pools increase in daylight hours. But this maybe isn't so easy to see on the graph quite yet. 
+
+What if we could mark the sunrise and sunset time to show when the pools are exposed to sunlight?
+
+To do that, we just need sunrise and sunset times for the days on which we recorded data from the pools. This can be obtained from almanac websites, the US Naval Observatory website, or the R package `suncalc`. I downloaded data from an Oregon almanac, since our data was from Oregon pools. 
+
 ```r
 #Sunrise and sunset data
 datum.ss <- read.csv(file = "Sunrise and Sunset times.csv", header = TRUE)
 
+> head(datum.ss)
+  Month.numeric Month Day Year  Sunrise   Sunset
+1             6  June   1 2022 05:34:00 20:54:00
+2             6  June   2 2022 05:33:00 20:55:00
+3             6  June   3 2022 05:33:00 20:56:00
+4             6  June   4 2022 05:32:00 20:56:00
+5             6  June   5 2022 05:32:00 20:57:00
+6             6  June   6 2022 05:31:00 20:58:00
+
+> str(datum.ss)
+'data.frame':	122 obs. of  6 variables:
+ $ Month.numeric: int  6 6 6 6 6 6 6 6 6 6 ...
+ $ Month        : chr  "June" "June" "June" "June" ...
+ $ Day          : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Year         : int  2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 ...
+ $ Sunrise      : chr  "05:34:00" "05:33:00" "05:33:00" "05:32:00" ...
+ $ Sunset       : chr  "20:54:00" "20:55:00" "20:56:00" "20:56:00" ... 
+```
+
+The data is all set up as integers or character strings, which is fine. We can format this data to match our formatting in the oxygen sensor data frame using simple base R functions. 
+
+We'll start with using `sprintf`, which returns character vectors containing formatted text and values that we can specify. 
+
+We'll start by adding 0's to the front of month and day values and combining the values to make a full date column. 
+```r
 str(datum.ss)
 
 #Add leading zero to get in right format
@@ -242,11 +273,31 @@ datum.ss$Day <- sprintf('%02d', datum.ss$Day) #For days
 
 #Combine year-month-day to make date variable
 datum.ss$Full.Date <- paste(datum.ss$Year, datum.ss$Month.numeric, datum.ss$Day, sep="-")
+```
 
+Then, we will combine our date and time values together in a single column each for sunrise and sunset times. You'll notice, this now gives us an exact same format matching the **Date** variable in our oxygen sensor data frame. 
+
+```r
 #combine date and time columns for sunrise and sunset
 datum.ss$Date.rise <- paste(datum.ss$Full.Date, datum.ss$Sunrise, sep=" ")
 datum.ss$Date.set <- paste(datum.ss$Full.Date, datum.ss$Sunset, sep = " ")
 
+> head(datum.ss[,c(8:9)])
+            Date.rise            Date.set
+1 2022-06-01 05:34:00 2022-06-01 20:54:00
+2 2022-06-02 05:33:00 2022-06-02 20:55:00
+3 2022-06-03 05:33:00 2022-06-03 20:56:00
+4 2022-06-04 05:32:00 2022-06-04 20:56:00
+5 2022-06-05 05:32:00 2022-06-05 20:57:00
+6 2022-06-06 05:31:00 2022-06-06 20:58:00
+```
+
+Now, we can just convert those columns into POSIX format to work with our plotting code. 
+
+We will also add a couple other columns for downstream filtering that might be helpful later. These are the dates by Month and Day, and the date converted to a sequential single number. 
+
+We will also relevel our Month variable to match chronological order, instead of the R default alphabetical. 
+```r
 #Convert sunrise and sunset times to posix format
 datum.ss$Date.rise <- as.POSIXct(datum.ss$Date.rise, format = "%Y-%m-%d %H:%M:%S")
 datum.ss$Date.set <- as.POSIXct(datum.ss$Date.set, format = "%Y-%m-%d %H:%M:%S")
@@ -259,5 +310,14 @@ datum.ss$Month <- factor(datum.ss$Month, levels = c("June", "July", "August", "S
 
 #Add another column with full date written as day of year for filtering
 datum.ss$DOY <- yday(datum.ss$Full.Date)
+
+> head(datum.ss)
+  Month.numeric Month Day Year  Sunrise   Sunset  Full.Date           Date.rise            Date.set Month.day DOY
+1            06  June  01 2022 05:34:00 20:54:00 2022-06-01 2022-06-01 05:34:00 2022-06-01 20:54:00   June 01 152
+2            06  June  02 2022 05:33:00 20:55:00 2022-06-02 2022-06-02 05:33:00 2022-06-02 20:55:00   June 02 153
+3            06  June  03 2022 05:33:00 20:56:00 2022-06-03 2022-06-03 05:33:00 2022-06-03 20:56:00   June 03 154
+4            06  June  04 2022 05:32:00 20:56:00 2022-06-04 2022-06-04 05:32:00 2022-06-04 20:56:00   June 04 155
+5            06  June  05 2022 05:32:00 20:57:00 2022-06-05 2022-06-05 05:32:00 2022-06-05 20:57:00   June 05 156
+6            06  June  06 2022 05:31:00 20:58:00 2022-06-06 2022-06-06 05:31:00 2022-06-06 20:58:00   June 06 157
 ```
 
