@@ -225,3 +225,39 @@ ggtitle(label="SH - August 1 - August 14")
 
 <img src="Figures/2 week lines.png" width="600">
 
+
+This is looking great. The aesthetics are clean and we have a lot of information in one place. Its easy to see the cycle of oxygen and temperature over time and how it compares to both normal lab conditions and dangerous hypoxic conditions. 
+
+The cycles are clearly daily. 
+
+```r
+#Sunrise and sunset data
+datum.ss <- read.csv(file = "Sunrise and Sunset times.csv", header = TRUE)
+
+str(datum.ss)
+
+#Add leading zero to get in right format
+datum.ss$Month.numeric <- sprintf('%02d', datum.ss$Month.numeric) #For months
+datum.ss$Day <- sprintf('%02d', datum.ss$Day) #For days
+
+#Combine year-month-day to make date variable
+datum.ss$Full.Date <- paste(datum.ss$Year, datum.ss$Month.numeric, datum.ss$Day, sep="-")
+
+#combine date and time columns for sunrise and sunset
+datum.ss$Date.rise <- paste(datum.ss$Full.Date, datum.ss$Sunrise, sep=" ")
+datum.ss$Date.set <- paste(datum.ss$Full.Date, datum.ss$Sunset, sep = " ")
+
+#Convert sunrise and sunset times to posix format
+datum.ss$Date.rise <- as.POSIXct(datum.ss$Date.rise, format = "%Y-%m-%d %H:%M:%S")
+datum.ss$Date.set <- as.POSIXct(datum.ss$Date.set, format = "%Y-%m-%d %H:%M:%S")
+
+#Create month day column. This should be run after formatting the day with the leading 0
+datum.ss$Month.day <- paste(datum.ss$Month, datum.ss$Day)
+
+#Relevel month variable to be in chrono order
+datum.ss$Month <- factor(datum.ss$Month, levels = c("June", "July", "August", "September"))
+
+#Add another column with full date written as day of year for filtering
+datum.ss$DOY <- yday(datum.ss$Full.Date)
+```
+
