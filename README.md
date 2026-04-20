@@ -357,3 +357,58 @@ ggtitle(label="SH - August 1 - August 14")
 ```
 
 <img src="Figures/DO data zoomed 2 weeks SH.png" width="600">
+
+Now we can directly see the connection between sunlight and oxygen fluctuations. 
+
+With longitudinal data, you have an opportunity to tell a story. The data changes over time and we can take advantage of that to make our figure impactful. 
+
+Let's animate the figure so we can watch the rise and fall of the oxygen in the pools over the daily cycles. To do this, we can use a package expansion to ggplot2 called `gganimate`. 
+
+All we need to do is add a line to the end of our code with the `transition_reveal` command. This command allows you to make data gradually appear based on a time variable. 
+
+Since our x-axis represents our time variable, we can code the reveal based on the Date columnn in our data frame.
+
+```r
+datum.SH |>
+ filter(between(Time, 1659337740, 1660546140)) |>
+ ggplot(aes(x=Date, y=DO)) +
+geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set, label = NULL), data = subset(datum.ss, DOY %in% 213:227), 
+                 ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")+
+geom_point() +
+geom_point(aes(x=Date, y=Temp), col="blue") +
+scale_x_datetime(name = "", date_labels = "%b %d", date_breaks = "1 day", expand = c(0.02, 0.02))+
+scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
+                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+        )+
+geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
+geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
+geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
+annotate("text", x = min(datum.SH$Date)+3980000, y = 8.5, label =  "7.4 mg/L", size = 4, color ="darkgreen")+
+annotate("text", x = min(datum.SH$Date)+3980000, y = 2.9, label =  "2 mg/L", size = 4, color ="orange")+
+annotate("text", x = min(datum.SH$Date)+3980000, y = 0.8, label =  "0 mg/L", size = 4, color ="red")+
+theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
+              axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+              panel.grid.major.y = element_line(color="grey95"), 
+              panel.grid.major.x = element_line(colour="grey95", linewidth=0.5))+
+ggtitle(label="SH - Oxygen")+
+transition_reveal(Date)
+```
+
+Next, we will animate our figure and save it as a gif_image object in our R environment using the `animate` command. 
+
+We want the animation to be smooth, so we will specify the gif to be 200 frames at 10 frames per second with a pause at the end before restarting. 
+
+To maximize quality we will also specify the compression to be lzw (lossless, typical for gif files). 
+
+We will then export the gif using the `anim_save` function. 
+
+```r
+anim <- animate(SH.zoom.animation.2week, nframes = 200, fps = 10, height = 6.5, width = 11, end_pause = 40,
+units = "in", res = 300, compression = "lzw")
+
+anim_save("DO Animation 2 weeks in August for SH.gif", anim)
+```
+
+
