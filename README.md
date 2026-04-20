@@ -411,4 +411,6 @@ units = "in", res = 300, compression = "lzw")
 anim_save("DO Animation 2 weeks in August for SH.gif", anim)
 ```
 
+<img src="animated_figures/DO Animation 2 weeks in August for SH.gif" width="600">
+
 
