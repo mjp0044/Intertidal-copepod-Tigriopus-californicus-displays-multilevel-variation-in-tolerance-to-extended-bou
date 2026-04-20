@@ -419,7 +419,7 @@ Here's our final product!
 
 If we zoom in to just two days, we can really see the timing of oxygen increase and decrease. 
 
-Let's also add an extra bit of mapping to our plot with `label = DO`.
+Let's also add an extra bit of mapping to our plot with `label = DO` in the aesthetics. This will display the oxygen value next to the point as it moves along the graph. 
 
 ```r
 datum.SH |>
