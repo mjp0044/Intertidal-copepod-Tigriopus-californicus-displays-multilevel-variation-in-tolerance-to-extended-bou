@@ -455,7 +455,7 @@ transition_reveal(Date, keep_last = TRUE)
 
 You'll notice that oxygen starts increasing with the sun rising, even before temperature increases. This is good evidence that temperature is not causing the increase in oxygen, but something else. 
 
-Turns out, the only living things in the pools besides the copepdos are algae. At night, they consume oxygen because they can't photosynthesize; but during the day, they switch back to photosynthesis and produce a ton of oxygen! 
+Turns out, the only living things in the pools besides the copepdos are algae. At night, the algae consume oxygen because they can't photosynthesize; but during the day, the algae switch back to photosynthesis and produce a ton of oxygen! 
 
 
 
