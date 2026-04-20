@@ -366,7 +366,9 @@ Let's animate the figure so we can watch the rise and fall of the oxygen in the 
 
 All we need to do is add a line to the end of our code with the `transition_reveal` command. This command allows you to make data gradually appear based on a time variable. 
 
-Since our x-axis represents our time variable, we can code the reveal based on the Date columnn in our data frame.
+Since our x-axis represents our time variable, we can code the reveal based on the Date columnn in our data frame. 
+
+Lastly, we will remove the top blue line showing lab temperature, just to keep our focus on the oxygen flux. 
 
 ```r
 datum.SH |>
@@ -411,6 +413,50 @@ units = "in", res = 300, compression = "lzw")
 anim_save("DO Animation 2 weeks in August for SH.gif", anim)
 ```
 
+Here's our final product!
+
 <img src="animated_figures/DO Animation 2 weeks in August for SH.gif" width="600">
+
+If we zoom in to just two days, we can really see the timing of oxygen increase and decrease. 
+
+Let's also add an extra bit of mapping to our plot with `label = DO`.
+
+```r
+datum.SH |>
+filter(between(Time, 1659510540, 1659682740)) |>
+ggplot(aes(x=Date, y=DO, label = DO)) +
+geom_rect(aes(NULL, NULL, xmin = Date.rise, xmax = Date.set, label=NULL), data = subset(datum.ss, DOY %in% 215:216), 
+                  ymin = 0, ymax = 32, fill = "yellow", alpha=0.15)+
+geom_line() +
+geom_line(aes(x=Date, y=Temp), col="blue")+
+geom_point() +
+geom_point(aes(x=Date, y=Temp), col="blue") +
+geom_text(hjust=-0.25, vjust=0)+
+scale_x_datetime(name = "", date_labels = "%b %d %H:%M:%S", date_breaks = "2 hour", expand = c(0.02, 0.02))+
+scale_y_continuous(name = "DO (mg/L)", breaks = seq(0,40, by = 2), 
+                           sec.axis = sec_axis(~., name = "Temp (°C)", breaks = seq(0,40, by =2))
+        )+
+geom_hline(yintercept=7.4, lty=2, linewidth =1, color="darkgreen")+
+geom_hline(yintercept=2, lty=2, linewidth =1, color="orange")+
+geom_hline(yintercept=0, lty=2, linewidth =1, color="red")+
+annotate("text", x = min(datum.SH$Date)+2910000, y = 8.5, label =  "7.4 mg/L", size = 4, color ="darkgreen")+
+annotate("text", x = min(datum.SH$Date)+2910000, y = 2.9, label =  "2 mg/L", size = 4, color ="orange")+
+annotate("text", x = min(datum.SH$Date)+2910000, y = 0.8, label =  "0 mg/L", size = 4, color ="red")+
+theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1),
+              axis.text.y.right = element_text(color="blue"), axis.title.y.right = element_text(color="blue"), 
+              panel.grid.major.y = element_line(color="grey95"),
+              panel.grid.minor.x = element_line(color = "grey95"))+
+ggtitle(label="SH - August 3-4")+
+transition_reveal(Date, keep_last = TRUE)
+```
+
+
+<img src="animated_figures/DO Animation 2 days in August for SH.gif" width="600">
+
+You'll notice that oxygen starts increasing with the sun rising, even before temperature increases. This is good evidence that temperature is not causing the increase in oxygen, but something else. 
+
+Turns out, the only living things in the pools besides the copepdos are algae. At night, they consume oxygen because they can't photosynthesize; but during the day, they switch back to photosynthesis and produce a ton of oxygen! 
+
+
 
 
