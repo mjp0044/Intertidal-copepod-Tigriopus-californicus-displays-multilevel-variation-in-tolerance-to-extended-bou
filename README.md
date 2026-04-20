@@ -15,7 +15,7 @@ These raw respirometry scripts can be found in the zip folder called "All Indivi
 
 # Data analysis highlights! 
 
-## A lesson in vizualizing continuous oxygen sensor data from the copepod's habitat
+## A lesson in vizualizing continuous oxygen sensor data 
 
 Problem: How do we take raw oxygen values from a sensor that sat in a tidepool collecting continuous data for three months straight and turn all that dissolved oxygen data into a clear picture that shows us what copepods experience on a daily and nightly basis?
 
